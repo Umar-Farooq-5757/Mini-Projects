@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Editing</title>
+    <script src="script.js" defer></script>
+    <style>
+      img {
+        /*border-radius:5px;
+	filter:blur(2px);
+	filter:grayscale(100%);
+	filter:brightness(50%);
+	filter:contrast(90%)	;
+	filter:drop-shadow(h-shadow v-shadow blur spread color);
+	filter:hue-rotate(30deg);
+	filter:invert(120%);
+	filter:opacity(80%);
+	filter:saturate(30%);
+	filter:sepia(0%);
+	filter: grayscale(50%) blur(5px) sepia(100%);*/
+      }
+      code {
+        background-color: rgb(192, 192, 192);
+        padding: 2px 5px;
+        border-radius: 3px;
+      }
+      span {
+        cursor: pointer;
+        user-select: none;
+      }
+    </style>
+  </head>
+  <body>
+    <span class="info">&#9432;</span>
+    <p style="display: none">
+      edit the url and add query params i.e. <code>/?opacity=13&blur=2</code>
+    </p>
+
+    <h1>Edit your images through URL</h1>
+    <img width="900px" height="600px" src="./nature.jpeg" />
+  </body>
+</html>
