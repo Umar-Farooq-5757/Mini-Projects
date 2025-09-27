@@ -3,8 +3,8 @@ import { FaGithub } from "react-icons/fa6";
 
 const Header = () => {
   return (
-    <header className="bg-[#fbfcf8] select-none shadow-md px-20 py-2 flex justify-between items-center">
-      <h1 className="inline-block animate-pulse text-3xl font-bold bg-gradient-to-r from-[#00d2f3] to-[#2a82ff] bg-clip-text text-transparent">
+    <header className="bg-[#fbfcf8] select-none shadow-md px-3 sm:px-10 md:px-20 py-2 flex justify-between items-center">
+      <h1 className="inline-block animate-pulse text-2xl sm:text-3xl font-bold bg-gradient-to-r from-[#00d2f3] to-[#2a82ff] bg-clip-text text-transparent">
         Web Utilities
       </h1>
       <a

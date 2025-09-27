@@ -12,7 +12,7 @@ const NumberInput = ({ min = 0, max = 100, value, setValue }) => {
   };
 
   return (
-    <div className="w-52">
+    <div className="w-42 sm:w-52">
       <input
         type="number"
         value={value}

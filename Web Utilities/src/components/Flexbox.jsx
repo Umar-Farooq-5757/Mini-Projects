@@ -30,8 +30,8 @@ const Flexbox = () => {
   };
 
   return (
-    <section className="my-3 mt-6 mx-20">
-      <h2 className="select-none mb-2 inline-block text-2xl font-semibold bg-gradient-to-r from-[#2a82ff] to-[#00d2f3] bg-clip-text text-transparent">
+    <section className="my-3 mt-6 mx-3 sm:mx-10 md:mx-20">
+      <h2 className="select-none mb-2 inline-block text-xl sm:text-2xl font-semibold bg-gradient-to-r from-[#2a82ff] to-[#00d2f3] bg-clip-text text-transparent">
         FlexBox
       </h2>
       <div className="options flex gap-5 flex-wrap">
@@ -161,7 +161,7 @@ const Flexbox = () => {
       {/* Actual flexbox container */}
       <div
         style={styles}
-        className="my-5 p-2 border border-gray-300 min-h-72 shadow-sm rounded-sm"
+        className="my-5 p-2 overflow-auto border border-gray-300 h-72 shadow-sm rounded-sm"
       >
         {Array.from({ length: noOfItems }).map((_, index) => (
           <FlexItem key={index} count={index + 1} />
