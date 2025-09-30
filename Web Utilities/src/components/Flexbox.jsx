@@ -18,6 +18,7 @@ const Flexbox = () => {
   const [justifyContent, setJustifyContent] = useState("");
   const [alignItems, setAlignItems] = useState("");
   const [flexWrap, setFlexWrap] = useState("");
+  const [flexGrow, setFlexGrow] = useState(0);
   const [gap, setGap] = useState(10);
 
   const styles = {
@@ -28,7 +29,6 @@ const Flexbox = () => {
     flexWrap,
     gap:`${gap}px`,
   };
-
   return (
     <section className="my-3 mt-6 mx-3 sm:mx-10 md:mx-20">
       <h2 className="select-none mb-2 inline-block text-xl sm:text-2xl font-semibold bg-gradient-to-r from-[#2a82ff] to-[#00d2f3] bg-clip-text text-transparent">
@@ -66,7 +66,8 @@ const Flexbox = () => {
           <NumberInput
             value={noOfItems}
             setValue={setNoOfItems}
-            min={1}
+            setNoOfItems={setNoOfItems}
+            min={0}
             max={20}
             defaultValue={3}
           />
@@ -137,6 +138,21 @@ const Flexbox = () => {
         </div>
         <div>
           <Dropdown
+            label="Flex-Grow (item)"
+            items={[
+              {
+                label: "0",
+                action: () => setFlexGrow(0),
+              },
+              {
+                label: "1",
+                action: () => setFlexGrow(1),
+              },
+            ]}
+          />
+        </div>
+        <div>
+          <Dropdown
             label="Flex-Wrap"
             items={[
               {
@@ -164,7 +180,7 @@ const Flexbox = () => {
         className="my-5 p-2 overflow-auto border border-gray-300 h-72 shadow-sm rounded-sm"
       >
         {Array.from({ length: noOfItems }).map((_, index) => (
-          <FlexItem key={index} count={index + 1} />
+          <FlexItem key={index} count={index + 1} flexGrow={flexGrow} />
         ))}
       </div>
     </section>
