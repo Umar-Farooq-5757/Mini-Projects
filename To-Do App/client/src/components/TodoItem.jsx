@@ -26,11 +26,11 @@ const TodoItem = ({text="default text"}) => {
       </label>
       {/* Action buttons */}
       <div className="flex items-center justify-center gap-4">
-        <button className="group cursor-pointer hover:bg-blue-100 rounded-full p-2 transition-all">
-          <Pencil className="group-hover:text-blue-500" />
+        <button className="group cursor-pointer hover:bg-blue-100 rounded-full p-[6px] transition-all">
+          <Pencil className="group-hover:text-blue-500 size-4" />
         </button>
-        <button className="group cursor-pointer hover:bg-red-100 rounded-full p-2 transition-all">
-          <Trash className="group-hover:text-red-500" />
+        <button className="group cursor-pointer hover:bg-red-100 rounded-full p-[6px] transition-all">
+          <Trash className="group-hover:text-red-500 size-4" />
         </button>
       </div>
     </div>
