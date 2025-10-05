@@ -1,11 +1,12 @@
 import { Pencil, Trash } from "lucide-react";
 import React from "react";
 
-const TodoItem = ({text="default text"}) => {
+const TodoItem = ({text="default text", isCompleted}) => {
+
   return (
-    <div className="todo-item flex justify-between items-center bg-white shadow3 py-2 px-4 rounded-md">
+    <div className="todo-item my-3 flex justify-between items-center bg-white shadow3 py-2 px-4 rounded-md">
       <label className="flex gap-3 items-center cursor-pointer relative">
-        <input type="checkbox" className="hidden peer" />
+        <input type="checkbox" className="hidden peer" checked={isCompleted} />
         <span className="w-5 h-5 border border-slate-400 rounded relative flex items-center justify-center peer-checked:border-green-500"></span>
         <svg
           className="absolute hidden peer-checked:inline left-1 top-1/2 transform -translate-y-1/2"
