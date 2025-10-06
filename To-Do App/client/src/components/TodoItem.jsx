@@ -1,12 +1,42 @@
+import axios from "axios";
 import { Pencil, Trash } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
-const TodoItem = ({text="default text", isCompleted}) => {
+const TodoItem = ({
+  text = "default text",
+  isCompleted,
+  taskId,
+  todoValue,
+  setTodoValue,
+  setMode,
+  editTodo
+}) => {
+  const [checkBoxValue, setCheckBoxValue] = useState(isCompleted);
+
+  const deleteTodo = (id) => {
+    axios({
+      method: "delete",
+      url: `/api/todo/delete/${id}`,
+    })
+      .then((res) => {
+        console.log(`User deleted. Status: ${res.status}`);
+      })
+      .catch((err) => {
+        console.error("Deletion failed:", err);
+      });
+  };
+
+  
 
   return (
     <div className="todo-item my-3 flex justify-between items-center bg-white shadow3 py-2 px-4 rounded-md">
       <label className="flex gap-3 items-center cursor-pointer relative">
-        <input type="checkbox" className="hidden peer" checked={isCompleted} />
+        <input
+          onChange={(e) => setCheckBoxValue(!checkBoxValue)}
+          type="checkbox"
+          className="hidden peer"
+          checked={checkBoxValue}
+        />
         <span className="w-5 h-5 border border-slate-400 rounded relative flex items-center justify-center peer-checked:border-green-500"></span>
         <svg
           className="absolute hidden peer-checked:inline left-1 top-1/2 transform -translate-y-1/2"
@@ -23,14 +53,23 @@ const TodoItem = ({text="default text", isCompleted}) => {
             strokeWidth=".4"
           />
         </svg>
-        <span className="text-gray-700 select-none">{text}</span>
+        <span
+          className={`${
+            checkBoxValue ? "line-through" : ""
+          } text-gray-700 select-none`}
+        >
+          {text}
+        </span>
       </label>
       {/* Action buttons */}
       <div className="flex items-center justify-center gap-4">
-        <button className="group cursor-pointer hover:bg-blue-100 rounded-full p-[6px] transition-all">
+        <button onClick={() =>{ editTodo(taskId,isCompleted);setMode('editing'); setTodoValue(text);}} className="group cursor-pointer hover:bg-blue-100 rounded-full p-[6px] transition-all">
           <Pencil className="group-hover:text-blue-500 size-4" />
         </button>
-        <button className="group cursor-pointer hover:bg-red-100 rounded-full p-[6px] transition-all">
+        <button
+          onClick={() => deleteTodo(taskId)}
+          className="group cursor-pointer hover:bg-red-100 rounded-full p-[6px] transition-all"
+        >
           <Trash className="group-hover:text-red-500 size-4" />
         </button>
       </div>
