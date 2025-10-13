@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Validation</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h1>Form Validation</h1>
+    <form action="#">
+        <div class="input-field">
+            <p class="error">Invalid username</p>
+            <label for="username">Username</label>
+            <input id="username" type="text" autocomplete="off">
+        </div>
+        <div class="input-field">
+            <label for="email">Email</label>
+            <input id="email" type="text" autocomplete="off">
+        </div>
+        <div class="input-field">
+            <label for="age">Age</label>
+            <input id="age" type="text" autocomplete="off">
+        </div>
+        <div class="input-field">
+            <label for="password">Password</label>
+            <input id="password" type="text" autocomplete="off">
+        </div>
+        <div class="input-field">
+            <label for="confirm-password">Confirm Password</label>
+            <input id="confirm-password" type="text" autocomplete="off">
+        </div>
+        <div class="input-field">
+            <label for="country">Country</label>
+            <select name="" id="country">
+                <option value="" hidden>Select Country</option>
+                <option value="pakistan">Pakistan</option>
+                <option value="india">India</option>
+                <option value="afghanistan">Afghanistan</option>
+                <option value="bangladesh">Bangladesh</option>
+                <option value="nepal">Nepal</option>
+            </select>
+        </div>
+         <div class="input-field" style="flex-direction: row;">
+             <input id="terms" type="checkbox">
+             <label for="terms">Accept terms & conditions.</label>
+        </div>
+        <button>Submit</button>
+    </form>
+</body>
+</html>

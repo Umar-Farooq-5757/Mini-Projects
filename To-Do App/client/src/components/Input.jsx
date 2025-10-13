@@ -1,19 +1,17 @@
 import axios from "axios";
 import { Plus, SquarePen } from "lucide-react";
+import { useAppContext } from "../../context/AppContext";
 
-const Input = ({ todoValue, setTodoValue, mode, setMode ,editTodo}) => {
-  const postTodo = () => {
-    axios
-      .post("/api/todo/create", { text: todoValue })
-      .then((res) => {
-        console.log("Secure POST successful:", res);
-        setTodoValue("");
-      })
-      .catch((err) => {
-        console.error("Secure POST failed:", err);
-      });
-  };
-  
+const Input = () => {
+  const {
+    todoValue,
+    setTodoValue,
+    mode,
+    setMode,
+    editTodo,
+    postTodo,
+    getAllTodos,
+  } = useAppContext();
 
   return (
     <div className="my-5 flex justify-center items-center gap-5 pt-8">
@@ -28,18 +26,18 @@ const Input = ({ todoValue, setTodoValue, mode, setMode ,editTodo}) => {
       />
       <button
         onClick={() => {
+          mode == "creating" ? postTodo() : editTodo();
           setMode("creating");
-          mode == "creating" ? postTodo : editTodo;
         }}
-        className="border border-gray-200 transition-all active:scale-95 shadow2 flex justify-center items-center rounded-md px-3 py-1 cursor-pointer"
+        className="border border-gray-200 text-sm  transition-all active:scale-95 shadow2 flex justify-center items-center gap-1 rounded-md px-3 py-1 cursor-pointer"
       >
         {mode == "creating" ? (
           <>
-            <Plus /> Add
+            <Plus className="size-5" /> Add
           </>
         ) : (
           <>
-            <SquarePen /> Edit
+            <SquarePen className="size-5" /> Edit
           </>
         )}
       </button>

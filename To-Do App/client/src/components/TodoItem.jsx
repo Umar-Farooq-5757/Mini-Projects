@@ -1,33 +1,23 @@
 import axios from "axios";
 import { Pencil, Trash } from "lucide-react";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useAppContext } from "../../context/AppContext";
 
-const TodoItem = ({
-  text = "default text",
-  isCompleted,
-  taskId,
-  todoValue,
-  setTodoValue,
-  setMode,
-  editTodo
-}) => {
+const TodoItem = ({ text = "default text", isCompleted, taskId }) => {
   const [checkBoxValue, setCheckBoxValue] = useState(isCompleted);
+  const {
+    todoValue,
+    setMode,
+    setTodoValue,
+    editTodo,
+    deleteTodo,
+    setEditTaskId,
+    setEditTaskIsCompleted,
+  } = useAppContext();
 
-  const deleteTodo = (id) => {
-    axios({
-      method: "delete",
-      url: `/api/todo/delete/${id}`,
-    })
-      .then((res) => {
-        console.log(`User deleted. Status: ${res.status}`);
-      })
-      .catch((err) => {
-        console.error("Deletion failed:", err);
-      });
-  };
-
-  
-
+  useEffect(() => {
+    setEditTaskIsCompleted(checkBoxValue);
+  }, [checkBoxValue, setEditTaskIsCompleted]);
   return (
     <div className="todo-item my-3 flex justify-between items-center bg-white shadow3 py-2 px-4 rounded-md">
       <label className="flex gap-3 items-center cursor-pointer relative">
@@ -63,7 +53,15 @@ const TodoItem = ({
       </label>
       {/* Action buttons */}
       <div className="flex items-center justify-center gap-4">
-        <button onClick={() =>{ editTodo(taskId,isCompleted);setMode('editing'); setTodoValue(text);}} className="group cursor-pointer hover:bg-blue-100 rounded-full p-[6px] transition-all">
+        <button
+          onClick={() => {
+            setEditTaskId(taskId);
+            setEditTaskIsCompleted(isCompleted);
+            setMode("editing");
+            setTodoValue(text);
+          }}
+          className="group cursor-pointer hover:bg-blue-100 rounded-full p-[6px] transition-all"
+        >
           <Pencil className="group-hover:text-blue-500 size-4" />
         </button>
         <button
