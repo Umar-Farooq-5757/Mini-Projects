@@ -1,10 +1,12 @@
 const express = require("express");
 const todoRouter = require("./routes/Todo.routes.js");
 const app = express();
+const cors = require("cors");
 
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("home page");
