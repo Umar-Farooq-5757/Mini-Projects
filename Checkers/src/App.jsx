@@ -1,4 +1,5 @@
 import "./App.css";
+import Piece from "./components/Piece";
 
 function App() {
   const board = [
@@ -13,20 +14,27 @@ function App() {
   ];
   return (
     <div>
-      <div className="w-[704px] h-[704px] mx-auto mt-10 border border-black/30 rounded-sm overflow-hidden">
-        {board.map((row) => {
+      <div className="w-[704px] h-[704px] relative mx-auto mt-10 border border-black/30 rounded-sm overflow-hidden">
+        {
+        board.map((row,index) => {
           return (
-            <div className="flex">
-              {row.map((box) => {
-                return box == "w" ? (
-                  <div className="h-[88px] w-[88px] bg-white"></div>
-                ) : (
-                  <div className="h-[88px] w-[88px] bg-gray-500"></div>
+            <div key={index} className="flex">
+              {row.map((box,idx) => {
+                return (
+                  <div
+                  key={idx}
+                    className={`h-[88px] w-[88px] ${
+                      box == "w" ? "bg-[#f6f6f6]" : "bg-[#676868]"
+                    } flex justify-center items-center`}
+                  >
+                    {box == "b" && <Piece color={'white'}/>}
+                  </div>
                 );
               })}
             </div>
           );
-        })}
+        })
+        }
       </div>
     </div>
   );
