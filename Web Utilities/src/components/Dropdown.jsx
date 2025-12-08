@@ -23,12 +23,12 @@ const Dropdown = ({ items, label = "Select Option" }) => {
   };
 
   return (
-    <div className="relative w-42 sm:w-52" ref={dropdownRef}>
+    <div className="relative w-36 text-sm sm:w-52" ref={dropdownRef}>
       {/* Dropdown Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={`
-          w-full px-4 py-2 text-left bg-white border rounded-lg shadow-sm 
+          w-full px-2 sm:px-4 py-2 text-left bg-white border rounded-lg shadow-sm 
           focus:outline-none focus:ring-2 transition-all duration-300 
           flex items-center justify-between
           ${
@@ -86,7 +86,7 @@ const Dropdown = ({ items, label = "Select Option" }) => {
                 className={`
                   w-full px-4 py-3 text-left transition-all duration-200 
                   flex items-center space-x-3 group relative overflow-hidden
-                   active:scale-95
+                   active:scale-95 
                   ${
                     selectedItem?.label === item.label
                       ? "bg-gradient-to-r from-[#00d2f3] to-[#2a82ff] text-white"

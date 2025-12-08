@@ -13,7 +13,7 @@ import RangeSlider from "./RangeSlider";
 import FlexItem from "./FlexItem";
 
 const Flexbox = () => {
-  const [flexDirection, setFlexDirection] = useState("column");
+  const [flexDirection, setFlexDirection] = useState("row");
   const [noOfItems, setNoOfItems] = useState(3);
   const [justifyContent, setJustifyContent] = useState("");
   const [alignItems, setAlignItems] = useState("");
