@@ -1,10 +1,10 @@
 "use client";
+import { useAppContext } from "@/contexts/AppContext";
 import { useEffect, useRef, useState } from "react";
 
 export default function Home() {
   const [targetText, setTargetText] = useState("This is some text for demo.");
   const [inputValue, setInputValue] = useState("");
-  console.log(inputValue);
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
@@ -12,27 +12,37 @@ export default function Home() {
   const handleClick = () => {
     inputRef.current.focus();
   };
-
+  const u = useAppContext()
+  console.log(u)
   const RenderText = () => {
     return targetText.split("").map((char, idx) => {
       let coloredClass = "";
       if (idx < inputValue.length) {
         if (char == inputValue[idx]) {
-          coloredClass = "bg-green-600";
+          coloredClass = "text-green-400";
         } else {
-          coloredClass = "bg-red-600";
+          coloredClass = "text-red-400";
         }
-      } else if (idx == inputValue.length) {
-        coloredClass = "bg-orange-600";
       }
       return (
-        <span className={coloredClass} key={idx}>{char}</span>
-      )
+        <span
+          className={`${coloredClass} ${
+            idx == inputValue.length ? "border-orange-500" : "border-white"
+          } transition-all  border-b-4`}
+          key={idx}
+        >
+          {char}
+        </span>
+      );
     });
   };
+
+
   return (
     <div>
-      <div className="font-mono text-4xl">{RenderText()}</div>
+      <div className="font-mono text-4xl m-52 transition-all duration-200">
+        {RenderText()}
+      </div>
       <input
         ref={inputRef}
         type="text"
