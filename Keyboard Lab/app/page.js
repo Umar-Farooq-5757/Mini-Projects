@@ -2,11 +2,14 @@
 import Keyboard from "@/components/Keyboard";
 import { useAppContext } from "@/contexts/AppContext";
 import { useCallback, useEffect, useRef, useState } from "react";
-import useClickSound from '../hooks/useClickSound.js'
+import useClickSound from "../hooks/useClickSound.js";
 
 export default function Home() {
-  const {targetText} = useAppContext()
+  const { targetText } = useAppContext();
   const [inputValue, setInputValue] = useState("");
+  const [currentKeyToPress, setCurrentKeyToPress] = useState(
+    targetText[inputValue.length]
+  );
   const inputRef = useRef(null);
   useEffect(() => {
     inputRef.current.focus();
@@ -15,13 +18,20 @@ export default function Home() {
     inputRef.current.focus();
   };
   const playClickSound = useClickSound();
-  const handleKeyDown = useCallback((event) => {
-    // We only want a sound for actual *typing* keys, not utility keys like Shift, Ctrl, F5, etc.
-    // The key.length check is a simple heuristic to filter them out.
-    if (event.key.length === 1 || event.key === 'Backspace' || event.key === ' ') {
-      playClickSound();
-    }
-  }, [playClickSound]);
+  const handleKeyDown = useCallback(
+    (event) => {
+      // We only want a sound for actual *typing* keys, not utility keys like Shift, Ctrl, F5, etc.
+      // The key.length check is a simple heuristic to filter them out.
+      if (
+        event.key.length === 1 ||
+        event.key === "Backspace" ||
+        event.key === " "
+      ) {
+        playClickSound();
+      }
+    },
+    [playClickSound]
+  );
   const RenderText = () => {
     return targetText.split("").map((char, idx) => {
       let coloredClass = "";
@@ -35,7 +45,7 @@ export default function Home() {
       return (
         <span
           className={`${coloredClass} ${
-            idx == inputValue.length ? "border-orange-500" : "border-white"
+            idx == inputValue.length ? "border-orange-500" : "border-[#f2f4f7]"
           } transition-all border-l-2`}
           key={idx}
         >
@@ -45,13 +55,12 @@ export default function Home() {
     });
   };
 
-
   return (
-    <div className="py-8 px-20">
+    <div className="py-8 px-20 bg-[#f2f4f7] min-h-[calc(100vh-3rem)]">
       <div className="font-mono text-xl">
         <div className="my-3 border-b-2 pb-3">{RenderText()}</div>
         <div>
-          <Keyboard/>
+          <Keyboard currentKeyToPress={currentKeyToPress} />
         </div>
       </div>
       <input
@@ -61,7 +70,10 @@ export default function Home() {
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
+        onChange={(e) => {
+          setInputValue(e.target.value);
+          setCurrentKeyToPress(targetText[e.target.value.length]);
+        }}
         autoCorrect="off"
         autoCapitalize="off"
         spellCheck="false"
