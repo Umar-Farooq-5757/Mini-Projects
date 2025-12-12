@@ -1,9 +1,11 @@
 "use client";
+import Keyboard from "@/components/Keyboard";
 import { useAppContext } from "@/contexts/AppContext";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import useClickSound from '../hooks/useClickSound.js'
 
 export default function Home() {
-  const [targetText, setTargetText] = useState("This is some text for demo.");
+  const {targetText} = useAppContext()
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
   useEffect(() => {
@@ -12,23 +14,29 @@ export default function Home() {
   const handleClick = () => {
     inputRef.current.focus();
   };
-  const u = useAppContext()
-  console.log(u)
+  const playClickSound = useClickSound();
+  const handleKeyDown = useCallback((event) => {
+    // We only want a sound for actual *typing* keys, not utility keys like Shift, Ctrl, F5, etc.
+    // The key.length check is a simple heuristic to filter them out.
+    if (event.key.length === 1 || event.key === 'Backspace' || event.key === ' ') {
+      playClickSound();
+    }
+  }, [playClickSound]);
   const RenderText = () => {
     return targetText.split("").map((char, idx) => {
       let coloredClass = "";
       if (idx < inputValue.length) {
         if (char == inputValue[idx]) {
-          coloredClass = "text-green-400";
+          coloredClass = "text-green-500";
         } else {
-          coloredClass = "text-red-400";
+          coloredClass = "text-red-500";
         }
       }
       return (
         <span
           className={`${coloredClass} ${
             idx == inputValue.length ? "border-orange-500" : "border-white"
-          } transition-all  border-b-4`}
+          } transition-all border-l-2`}
           key={idx}
         >
           {char}
@@ -39,15 +47,19 @@ export default function Home() {
 
 
   return (
-    <div>
-      <div className="font-mono text-4xl m-52 transition-all duration-200">
-        {RenderText()}
+    <div className="py-8 px-20">
+      <div className="font-mono text-xl">
+        <div className="my-3 border-b-2 pb-3">{RenderText()}</div>
+        <div>
+          <Keyboard/>
+        </div>
       </div>
       <input
         ref={inputRef}
         type="text"
         className="opacity-0 absolute inset-0 cursor-default"
         onClick={handleClick}
+        onKeyDown={handleKeyDown}
         value={inputValue}
         onChange={(e) => setInputValue(e.target.value)}
         autoCorrect="off"
