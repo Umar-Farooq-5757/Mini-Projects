@@ -3,6 +3,10 @@ import Keyboard from "@/components/Keyboard";
 import { useAppContext } from "@/contexts/AppContext";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useClickSound from "../hooks/useClickSound.js";
+import InfoBar from "@/components/InfoBar.js";
+import { UserInfo } from "@/components/modals/UserInfo.js";
+import { KeyboardIcon } from "lucide-react";
+import { Button } from "@/components/ui/button.jsx";
 
 export default function Home() {
   const { targetText } = useAppContext();
@@ -14,7 +18,7 @@ export default function Home() {
   useEffect(() => {
     inputRef.current.focus();
   }, []);
-  const handleClick = () => {
+  const handleClick = (e) => {
     inputRef.current.focus();
   };
   const playClickSound = useClickSound();
@@ -45,7 +49,7 @@ export default function Home() {
       return (
         <span
           className={`${coloredClass} ${
-            idx == inputValue.length ? "border-orange-500" : "border-[#f2f4f7]"
+            idx == inputValue.length ? "border-orange-500" : "border-white"
           } transition-all border-l-2`}
           key={idx}
         >
@@ -56,9 +60,22 @@ export default function Home() {
   };
 
   return (
-    <div className="py-8 px-20 bg-[#f2f4f7] min-h-[calc(100vh-3rem)]">
-      <div className="font-mono text-xl">
-        <div className="my-3 border-b-2 pb-3">{RenderText()}</div>
+    <div className="py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-3rem)]">
+      <InfoBar />
+      <div className="font-mono text-[17px] sm:text-xl">
+        <div className="my-3 border-b-2 pb-10 bg-white rounded-md px-3 py-2 shadow-sm relative">
+          {RenderText()}
+          <Button
+          onClick={handleClick}
+            variant="outline"
+            size="sm"
+            className={
+              "absolute right-3 bottom-3 bg-purple-500 text-white cursor-pointer"
+            }
+          >
+            <KeyboardIcon /> Start Typing
+          </Button>
+        </div>
         <div>
           <Keyboard currentKeyToPress={currentKeyToPress} />
         </div>
@@ -66,7 +83,7 @@ export default function Home() {
       <input
         ref={inputRef}
         type="text"
-        className="opacity-0 absolute inset-0 cursor-default"
+        className="opacity-0 absolute inset-0 cursor-default -z-50"
         onClick={handleClick}
         onKeyDown={handleKeyDown}
         value={inputValue}
@@ -78,6 +95,7 @@ export default function Home() {
         autoCapitalize="off"
         spellCheck="false"
       />
+      <UserInfo />
     </div>
   );
 }

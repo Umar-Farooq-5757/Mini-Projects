@@ -2,7 +2,7 @@ import keyboardLayout from "@/utils/keysData";
 
 export default function Keyboard({ currentKeyToPress }) {
   return (
-    <div className="w-[70vw] my-12 space-y-2 bg-white shadow-xs rounded-md p-3">
+    <div className="w-[95vw] sm:w-[85vw] mx-auto my-12 space-y-2 bg-white shadow-sm rounded-md p-3">
       {keyboardLayout.map((row, index) => {
         return (
           <div key={index} className="grid grid-flow-col gap-1">
@@ -16,7 +16,7 @@ export default function Keyboard({ currentKeyToPress }) {
                       ? "bg-orange-200 text-orange-600"
                       : "bg-gray-200"
                   } py-1 rounded-md flex justify-center items-center select-none ${
-                    key.label.length > 1 ? "text-sm" : "text-lg"
+                    key.label.length > 1 ? "text-xs sm:text-sm" : "text-sm sm:text-lg"
                   }`}
                 >
                   {key.label}

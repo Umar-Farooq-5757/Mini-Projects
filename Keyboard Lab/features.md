@@ -1,4 +1,41 @@
-# Features Checklist
+# Features 
+
+### Checklist
+* ***The Core Typing Engine***
+    - [ ] Real-Time WPM & Accuracy
+    - [ ] Raw vs. Adjusted WPM
+    - [x] Instant Error Highlighting
+    - [ ] Backspace Behavior Options
+    - [ ] Multiple Test Durations
+    - [ ] Word Count Mode
+    - [ ] Smart Restart (Quick Reset)
+    - [ ] Caret Customization
+    - [ ] Real-Time WPM & Accuracy
+* ***Content & Modes***
+    - [ ] Punctuation & Numbers Mode
+    - [ ] Quote Mode
+    - [ ] Programming Syntax Mode
+    - [ ] Blind Mode
+    - [ ] Sudden Death Mode
+    - [ ] Zen Mode
+* ***Deep Analytics & Statistics***
+    - [ ] WPM History Graph
+    - [ ] Key Heatmap
+    - [ ] Consistency Tracker
+    - [ ] Error Analysis Breakdown
+    - [ ] Percentile Ranking
+* ***User Progression & Gamification***
+    - [ ] XP and Leveling System
+    - [ ] Daily Streaks
+    - [ ] Badge/Achievement System
+    - [ ] Global Leaderboards
+    - [ ] Personal Bests
+* ***Customization (The "Feel")***
+    - [ ] Theming System
+    - [ ] Font Selection
+    - [ ] Badge/Achievement System
+    - [ ] Layout Support
+    - [x] Sound Effects
 
 ### The Core Typing Engine
 
