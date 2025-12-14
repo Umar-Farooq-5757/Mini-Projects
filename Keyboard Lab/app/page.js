@@ -3,8 +3,6 @@ import Keyboard from "@/components/Keyboard";
 import { useAppContext } from "@/contexts/AppContext";
 import { useCallback, useEffect, useRef, useState } from "react";
 import useClickSound from "../hooks/useClickSound.js";
-import InfoBar from "@/components/InfoBar.js";
-import { UserInfo } from "@/components/modals/UserInfo.js";
 import { KeyboardIcon } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 
@@ -60,17 +58,16 @@ export default function Home() {
   };
 
   return (
-    <div className="py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-3rem)]">
-      <InfoBar />
+    <div className="py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-56px)]">
       <div className="font-mono text-[17px] sm:text-xl">
-        <div className="my-3 border-b-2 pb-10 bg-white rounded-md px-3 py-2 shadow-sm relative">
+        <div className="my-3 border-b-2 pb-12 bg-white rounded-md px-3 py-2 shadow-sm relative">
           {RenderText()}
           <Button
           onClick={handleClick}
             variant="outline"
             size="sm"
             className={
-              "absolute right-3 bottom-3 bg-purple-500 text-white cursor-pointer"
+              "absolute right-3 bottom-2 bg-purple-500 text-white cursor-pointer"
             }
           >
             <KeyboardIcon /> Start Typing
@@ -95,7 +92,6 @@ export default function Home() {
         autoCapitalize="off"
         spellCheck="false"
       />
-      <UserInfo />
     </div>
   );
 }

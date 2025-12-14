@@ -21,12 +21,14 @@ export function AppProvider({ children }) {
   useEffect(() => {
     if (typeof window !== "undefined") {
       try {
-        setInfo(JSON.parse(localStorage.getItem("userinfo")) || {});
+        const storedInfo = localStorage.getItem("userinfo")
+        setInfo(JSON.parse(storedInfo) || {});
       } catch (e) {
         console.error("Could not parse user info from localStorage", e);
       }
     }
   }, []);
+  
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "theme-light";
     setTheme(storedTheme);
@@ -45,7 +47,7 @@ export function AppProvider({ children }) {
       info,
       setInfo,
     }),
-    [user, theme]
+    [user, theme, targetText, setTargetText, info, setInfo]
   );
   return (
     <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>
