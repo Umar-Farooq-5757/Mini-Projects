@@ -58,7 +58,7 @@ export default function Home() {
   };
 
   return (
-    <div className="py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-56px)]">
+    <main className=" py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-56px)]">
       <div className="font-mono text-[17px] sm:text-xl">
         <div className="my-3 border-b-2 pb-12 bg-white rounded-md px-3 py-2 shadow-sm relative">
           {RenderText()}
@@ -92,6 +92,6 @@ export default function Home() {
         autoCapitalize="off"
         spellCheck="false"
       />
-    </div>
+    </main>
   );
 }

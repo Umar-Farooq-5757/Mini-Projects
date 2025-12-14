@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-body{
+main{
 background-image: linear-gradient(#e9e9e9 2px, transparent 2px), linear-gradient(to right, #e9e9e9 2px, transparent 2px);
 background-size: 34px 34px;
 background-color: #f2f4f7;
