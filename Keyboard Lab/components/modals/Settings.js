@@ -16,17 +16,37 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Columns3Cog, Keyboard, Settings, TableOfContents } from "lucide-react";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import {
+  Columns3Cog,
+  Info,
+  Keyboard,
+  Settings,
+  TableOfContents,
+} from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
 
 export default function SettingsModal() {
   const [selectedTab, setSelectedTab] = useState("Typing Engine");
+  // Typing Engine
   const [countingMode, setCountingMode] = useState("wpm");
   const [backspaceBehavior, setBackspaceBehavior] = useState("Correct Errors");
   const [quickReset, setQuickReset] = useState(false);
-  const [highlightNextKey, setHighlightNextKey] = useState(true)
-  const [caretStyle, setCaretStyle] = useState('line')
+  const [highlightNextKey, setHighlightNextKey] = useState(true);
+  const [caretStyle, setCaretStyle] = useState("Line");
+  const [caretAnimation, setCaretAnimation] = useState("Solid");
+  // Content & Modes
+  const [punctuationAndNumbers, setPunctuationAndNumbers] = useState(false);
+  const [quoteMode, setQuoteMode] = useState(false);
+  const [programmingSyntaxMode, setProgrammingSyntaxMode] = useState(false);
+  const [blindMode, setBlindMode] = useState(false);
+  const [suddenDeathMode, setSuddenDeathMode] = useState(false);
+  const [zenMode, setZenMode] = useState(false);
   return (
     <Dialog>
       <DialogTrigger className="cursor-pointer">
@@ -106,7 +126,7 @@ export default function SettingsModal() {
                 <Switch
                   checked={quickReset}
                   onCheckedChange={setQuickReset}
-                  id="airplane-mode"
+                  id=""
                 />
               </div>
               <div className="flex items-center justify-between my-4">
@@ -114,7 +134,7 @@ export default function SettingsModal() {
                 <Switch
                   checked={highlightNextKey}
                   onCheckedChange={setHighlightNextKey}
-                  id="airplane-mode"
+                  id=""
                 />
               </div>
               <div className="flex items-center justify-between my-2">
@@ -132,6 +152,156 @@ export default function SettingsModal() {
                       <SelectItem value="Line">Line</SelectItem>
                       <SelectItem value="Block">Block</SelectItem>
                       <SelectItem value="Underline">Underline</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-center justify-between my-2">
+                <h3 className="font-semibold text-sm">Caret Animation</h3>
+                <Select>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue
+                      className="text-xs text-white"
+                      placeholder={caretAnimation.toUpperCase()}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Caret</SelectLabel>
+                      <SelectItem value="Smooth">Smooth</SelectItem>
+                      <SelectItem value="Blinking">Blinking</SelectItem>
+                      <SelectItem value="Solid">Solid</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          )}
+          {selectedTab == "Content & Modes" && (
+            <div className="bg-white h-full rounded-md p-2">
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Punctuation & Numbers{" "}
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Toggle special characters and numbers</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch
+                  checked={punctuationAndNumbers}
+                  onCheckedChange={setPunctuationAndNumbers}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Quote Mode
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Type qoutes from famous persons</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch
+                  checked={quoteMode}
+                  onCheckedChange={setQuoteMode}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Programming Syntax Mode{" "}
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Practice typing code snippets</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch
+                  checked={programmingSyntaxMode}
+                  onCheckedChange={setProgrammingSyntaxMode}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Blind Mode
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>Hide the text as it is typed</p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch
+                  checked={blindMode}
+                  onCheckedChange={setBlindMode}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Sudden Death Mode
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        The test ends immediately upon making a single mistake.
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch
+                  checked={suddenDeathMode}
+                  onCheckedChange={setSuddenDeathMode}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Zen Mode
+                  <Tooltip>
+                    <TooltipTrigger>
+                      <Info className="size-4 text-gray-500" />
+                    </TooltipTrigger>
+                    <TooltipContent>
+                      <p>
+                        UI-free experience that removes all timers and stats
+                      </p>
+                    </TooltipContent>
+                  </Tooltip>
+                </h3>
+                <Switch checked={zenMode} onCheckedChange={setZenMode} id="" />
+              </div>
+            </div>
+          )}
+          {selectedTab == "Customization" && (
+            <div className="bg-white h-full rounded-md p-2">
+              <div className="flex items-center justify-between my-2">
+                <h3 className="font-semibold text-sm">Theme</h3>
+                <Select>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue placeholder={countingMode.toUpperCase()} />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Theme</SelectLabel>
+                      <SelectItem value="cpm">CPM</SelectItem>
+                      <SelectItem value="wpm">WPM</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

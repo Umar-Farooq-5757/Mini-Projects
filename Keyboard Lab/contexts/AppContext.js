@@ -12,12 +12,11 @@ const AppContext = createContext();
 
 export function AppProvider({ children }) {
   const [theme, setTheme] = useState("theme-light");
-  const [isSettingsOpen, setIsSettingsOpen] = useState(true)
+  const [isSettingsOpen, setIsSettingsOpen] = useState(true);
   const [targetText, setTargetText] = useState(
     "Challenge yourself with this engaging paragraph designed to accurately measure your typing speed and accuracy. Focus on speed without sacrificing precision; every correctly typed word contributes to your final score. Track your progress, identify your weaknesses, and watch your typing skills improve with every attempt.!"
   );
- 
-  
+
   useEffect(() => {
     const storedTheme = localStorage.getItem("theme") || "theme-light";
     setTheme(storedTheme);
@@ -30,10 +29,11 @@ export function AppProvider({ children }) {
   const contextValue = useMemo(
     () => ({
       theme,
+      setTheme,
       targetText,
       setTargetText,
       isSettingsOpen,
-      setIsSettingsOpen
+      setIsSettingsOpen,
     }),
     [theme, targetText, setTargetText]
   );
