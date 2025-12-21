@@ -25,11 +25,14 @@ import {
   Columns3Cog,
   Info,
   Keyboard,
+  Moon,
   Settings,
+  Sun,
   TableOfContents,
 } from "lucide-react";
 import { useState } from "react";
 import { Switch } from "../ui/switch";
+import { useAppContext } from "@/contexts/AppContext";
 
 export default function SettingsModal() {
   const [selectedTab, setSelectedTab] = useState("Typing Engine");
@@ -37,7 +40,6 @@ export default function SettingsModal() {
   const [countingMode, setCountingMode] = useState("wpm");
   const [backspaceBehavior, setBackspaceBehavior] = useState("Correct Errors");
   const [quickReset, setQuickReset] = useState(false);
-  const [highlightNextKey, setHighlightNextKey] = useState(true);
   const [caretStyle, setCaretStyle] = useState("Line");
   const [caretAnimation, setCaretAnimation] = useState("Solid");
   // Content & Modes
@@ -47,13 +49,18 @@ export default function SettingsModal() {
   const [blindMode, setBlindMode] = useState(false);
   const [suddenDeathMode, setSuddenDeathMode] = useState(false);
   const [zenMode, setZenMode] = useState(false);
+  // Customization (The Feel)
+  const { theme } = useAppContext();
+  const [font, setFont] = useState("monospace");
+  const [soundEffects, setSoundEffects] = useState(true);
+  const [highlightNextKey, setHighlightNextKey] = useState(true);
   return (
     <Dialog>
       <DialogTrigger className="cursor-pointer">
         <Settings className="size-5" />
       </DialogTrigger>
-      <DialogContent className="bg-[#e7e7e7] h-3/5 p-4 pl-2 pt-6 pb-9 flex">
-        <div className="tabs pt-8">
+      <DialogContent className="bg-[#e7e7e7] h-3/5 p-4 pl-2 pt-6 pb-9 flex justify-start">
+        <div className="tabs w-[30%] pt-8">
           <div
             onClick={() => setSelectedTab("Typing Engine")}
             className={`flex items-center justify-start gap-2 mb-2 cursor-pointer hover:bg-gray-300 ${
@@ -61,7 +68,7 @@ export default function SettingsModal() {
             } py-1 px-2 transition-all rounded-md`}
           >
             <Keyboard className="text-gray-600 size-4" />
-            <p className="text-[14px]">Typing Engine</p>
+            <p className="text-[13px]">Typing Engine</p>
           </div>
           <div
             onClick={() => setSelectedTab("Content & Modes")}
@@ -70,7 +77,7 @@ export default function SettingsModal() {
             } py-1 px-2 transition-all rounded-md`}
           >
             <TableOfContents className="text-gray-600 size-4" />
-            <p className="text-[14px]">Content & Modes</p>
+            <p className="text-[13px]">Content & Modes</p>
           </div>
           <div
             onClick={() => setSelectedTab("Customization")}
@@ -79,13 +86,13 @@ export default function SettingsModal() {
             } py-1 px-2 transition-all rounded-md`}
           >
             <Columns3Cog className="text-gray-600 size-4" />
-            <p className="text-[14px]">Customization</p>
+            <p className="text-[13px]">Customization</p>
           </div>
         </div>
         <div className="grow">
           <DialogTitle className="mb-2">{selectedTab}</DialogTitle>
           {selectedTab == "Typing Engine" && (
-            <div className="bg-white h-full rounded-md p-2">
+            <div className="bg-white h-full rounded-md p-2 pl-3 flex flex-col">
               <div className="flex items-center justify-between my-2">
                 <h3 className="font-semibold text-sm">Counting Mode</h3>
                 <Select>
@@ -107,7 +114,7 @@ export default function SettingsModal() {
                   <SelectTrigger className="w-[140px]">
                     <SelectValue
                       className="text-xs text-white"
-                      placeholder="Choose"
+                      placeholder={backspaceBehavior}
                     />
                   </SelectTrigger>
                   <SelectContent>
@@ -129,21 +136,15 @@ export default function SettingsModal() {
                   id=""
                 />
               </div>
-              <div className="flex items-center justify-between my-4">
-                <h3 className="font-semibold text-sm">Highlight Next Key</h3>
-                <Switch
-                  checked={highlightNextKey}
-                  onCheckedChange={setHighlightNextKey}
-                  id=""
-                />
-              </div>
               <div className="flex items-center justify-between my-2">
                 <h3 className="font-semibold text-sm">Caret Style</h3>
                 <Select>
                   <SelectTrigger className="w-[140px]">
                     <SelectValue
                       className="text-xs text-white"
-                      placeholder={caretStyle.toUpperCase()}
+                      placeholder={
+                        caretStyle.charAt(0).toUpperCase() + caretStyle.slice(1)
+                      }
                     />
                   </SelectTrigger>
                   <SelectContent>
@@ -162,7 +163,10 @@ export default function SettingsModal() {
                   <SelectTrigger className="w-[140px]">
                     <SelectValue
                       className="text-xs text-white"
-                      placeholder={caretAnimation.toUpperCase()}
+                      placeholder={
+                        caretAnimation.charAt(0).toUpperCase() +
+                        caretAnimation.slice(1)
+                      }
                     />
                   </SelectTrigger>
                   <SelectContent>
@@ -178,7 +182,7 @@ export default function SettingsModal() {
             </div>
           )}
           {selectedTab == "Content & Modes" && (
-            <div className="bg-white h-full rounded-md p-2">
+            <div className="bg-white h-full rounded-md p-2 pl-3 flex flex-col">
               <div className="flex items-center justify-between my-4">
                 <h3 className="flex items-center gap-2 font-semibold text-sm">
                   Punctuation & Numbers{" "}
@@ -290,21 +294,66 @@ export default function SettingsModal() {
             </div>
           )}
           {selectedTab == "Customization" && (
-            <div className="bg-white h-full rounded-md p-2">
+            <div className="bg-white h-full rounded-md p-2 pl-3 flex flex-col">
               <div className="flex items-center justify-between my-2">
                 <h3 className="font-semibold text-sm">Theme</h3>
                 <Select>
                   <SelectTrigger className="w-[140px]">
-                    <SelectValue placeholder={countingMode.toUpperCase()} />
+                    <SelectValue
+                      placeholder={
+                        theme.charAt(0).toUpperCase() + theme.slice(1)
+                      }
+                    />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Theme</SelectLabel>
-                      <SelectItem value="cpm">CPM</SelectItem>
-                      <SelectItem value="wpm">WPM</SelectItem>
+                      <SelectItem value="dark">
+                        <Moon /> Dark
+                      </SelectItem>
+                      <SelectItem value="light">
+                        <Sun /> Light
+                      </SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>
+              </div>
+              <div className="flex items-center justify-between my-2">
+                <h3 className="font-semibold text-sm">Font</h3>
+                <Select>
+                  <SelectTrigger className="w-[140px]">
+                    <SelectValue
+                      placeholder={font.charAt(0).toUpperCase() + font.slice(1)}
+                    />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Font</SelectLabel>
+                      <SelectItem value="fira code">Fira Code</SelectItem>
+                      <SelectItem value="monospace">Monospace</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Sound Effects
+                </h3>
+                <Switch
+                  checked={soundEffects}
+                  onCheckedChange={setSoundEffects}
+                  id=""
+                />
+              </div>
+              <div className="flex items-center justify-between my-4">
+                <h3 className="flex items-center gap-2 font-semibold text-sm">
+                  Highlight Next Key
+                </h3>
+                <Switch
+                  checked={highlightNextKey}
+                  onCheckedChange={setHighlightNextKey}
+                  id=""
+                />
               </div>
             </div>
           )}
