@@ -36,24 +36,37 @@ import { useAppContext } from "@/contexts/AppContext";
 
 export default function SettingsModal() {
   const [selectedTab, setSelectedTab] = useState("Typing Engine");
-  // Typing Engine
-  const [countingMode, setCountingMode] = useState("wpm");
-  const [backspaceBehavior, setBackspaceBehavior] = useState("Correct Errors");
-  const [quickReset, setQuickReset] = useState(false);
-  const [caretStyle, setCaretStyle] = useState("Line");
-  const [caretAnimation, setCaretAnimation] = useState("Solid");
-  // Content & Modes
-  const [punctuationAndNumbers, setPunctuationAndNumbers] = useState(false);
-  const [quoteMode, setQuoteMode] = useState(false);
-  const [programmingSyntaxMode, setProgrammingSyntaxMode] = useState(false);
-  const [blindMode, setBlindMode] = useState(false);
-  const [suddenDeathMode, setSuddenDeathMode] = useState(false);
-  const [zenMode, setZenMode] = useState(false);
-  // Customization (The Feel)
-  const { theme } = useAppContext();
-  const [font, setFont] = useState("monospace");
-  const [soundEffects, setSoundEffects] = useState(true);
-  const [highlightNextKey, setHighlightNextKey] = useState(true);
+  const {
+    theme,
+    countingMode,
+    setCountingMode,
+    backspaceBehavior,
+    setBackspaceBehavior,
+    quickReset,
+    setQuickReset,
+    caretStyle,
+    setCaretStyle,
+    caretAnimation,
+    setCaretAnimation,
+    punctuationAndNumbers,
+    setPunctuationAndNumbers,
+    quoteMode,
+    setQuoteMode,
+    programmingSyntaxMode,
+    setProgrammingSyntaxMode,
+    blindMode,
+    setBlindMode,
+    suddenDeathMode,
+    setSuddenDeathMode,
+    zenMode,
+    setZenMode,
+    font,
+    setFont,
+    soundEffects,
+    setSoundEffects,
+    highlightNextKey,
+    setHighlightNextKey,
+  } = useAppContext();
   return (
     <Dialog>
       <DialogTrigger className="cursor-pointer">
@@ -150,9 +163,9 @@ export default function SettingsModal() {
                   <SelectContent>
                     <SelectGroup>
                       <SelectLabel>Caret</SelectLabel>
-                      <SelectItem value="Line">Line</SelectItem>
-                      <SelectItem value="Block">Block</SelectItem>
-                      <SelectItem value="Underline">Underline</SelectItem>
+                      <SelectItem onClick={()=>setCaretStyle('Line')} value="Line">Line</SelectItem>
+                      <SelectItem onClick={()=>setCaretStyle('Block')} value="Block">Block</SelectItem>
+                      <SelectItem onClick={()=>setCaretStyle('Underline')} value="Underline">Underline</SelectItem>
                     </SelectGroup>
                   </SelectContent>
                 </Select>

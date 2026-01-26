@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+*{
+  cursor: none;
+}
+@theme {
+  --color-brand: #3b82f6;
+  --color-brand-dark: oklch(0.1,0.1,102);
+
+  --spacing-app: 2rem;
+
+  --font-display: "Inter", sans-serif;
+}

@@ -7,7 +7,7 @@ import { KeyboardIcon } from "lucide-react";
 import { Button } from "@/components/ui/button.jsx";
 
 export default function Home() {
-  const { targetText } = useAppContext();
+  const { targetText, caretStyle } = useAppContext();
   const [inputValue, setInputValue] = useState("");
   const [currentKeyToPress, setCurrentKeyToPress] = useState(
     targetText[inputValue.length]
@@ -46,9 +46,16 @@ export default function Home() {
       }
       return (
         <span
+          style={{
+            borderLeftWidth: `${caretStyle == "Line" && "2px"}`,
+            borderBottomWidth: `${caretStyle == "Underline" && "2px"}`,
+            borderLeftWidth: `${caretStyle == "Underline" && "2px"}`,
+            borderLeftColor: `${caretStyle == "Underline" && "white"}`,
+            borderWidth: `${caretStyle == "Block" && "2px"}`,
+          }}
           className={`${coloredClass} ${
-            idx == inputValue.length ? "border-orange-500" : "border-white"
-          } transition-all border-l-2`}
+            idx == inputValue.length ? "border-purple-500" : "border-white"
+          } transition-all `}
           key={idx}
         >
           {char}
@@ -58,12 +65,12 @@ export default function Home() {
   };
 
   return (
-    <main className=" py-8 px-2 sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-56px)]">
+    <main className=" py-8 px-2 font-mono sm:px-8 md:px-12 xl:px-16 bg-transparent min-h-[calc(100vh-56px)]">
       <div className="font-mono text-[17px] sm:text-xl">
         <div className="my-3 border-b-2 pb-12 bg-white rounded-md px-3 py-2 shadow-sm relative">
           {RenderText()}
           <Button
-          onClick={handleClick}
+            onClick={handleClick}
             variant="outline"
             size="sm"
             className={
