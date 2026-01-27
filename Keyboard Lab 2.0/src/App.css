@@ -11,3 +11,17 @@
 
   --font-display: "Inter", sans-serif;
 }
+.custom-cursor {
+  transition: transform 150ms ease-out, background-color 150ms ease-out,
+    width 150ms ease-out, height 150ms ease-out, border-color 150ms ease-out;
+  will-change: transform, width, height, background-color;
+}
+
+/* When hovering an interactive element we add this class in JS */
+.custom-cursor--hover {
+  /* scale via transform is combined with the translate(-50%,-50%) from tailwind classes */
+  transform: translate(-50%, -50%) scale(1.6) !important;
+  background-color: transparent;
+  width: 1.25rem; /* slightly larger — optional if using scale */
+  height: 1.25rem;
+}

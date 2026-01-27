@@ -5,7 +5,7 @@ const Header = () => {
   return (
     <header className='bg-white py-3 px-28 flex items-center justify-between shadow-sm'>
       <h1>Keyboard Lab</h1>
-      <button><SlidersHorizontal /></button>
+      <button className='cursor-pointer' onClick={()=>console.log('button clicked')}><SlidersHorizontal /></button>
     </header>
   )
 }

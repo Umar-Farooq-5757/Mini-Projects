@@ -1,17 +1,16 @@
 import { useEffect, useRef, useState } from "react";
 import "./App.css";
 import CustomCursor from "./components/ui/CustomCursor";
-import clickSfx from "/click1.mp3";
 import Header from "./components/Header";
 import { useAppContext } from "./contexts/AppContext";
-import useClickSound from "./hooks/useClickSound";
+import { createClickPlayer } from "./utils/clickSynth";
+import Keyboard from "./components/Keyboard";
 
 function App() {
   const { targetText } = useAppContext();
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
-  const { play: playClickSound } = useClickSound(clickSfx);
 
   useEffect(() => {
     inputRef.current?.focus();
@@ -31,11 +30,16 @@ function App() {
     });
   };
 
-  const handleKeyDown = (e) => {
-    const isPrintable = e.key.length === 1;
-    const allowedControls = ["Backspace", "Enter", "Tab"];
-    if (isPrintable || allowedControls.includes(e.key)) {
-      playClickSound();
+  // Playing click sound
+  const clickRef = useRef(null)
+   useEffect(() => {
+    clickRef.current = createClickPlayer();
+    return () => clickRef.current?.dispose();
+  }, []);
+   const handleKeyDown = (e) => {
+    const printable = e.key.length === 1;
+    if (printable || ["Backspace", "Enter"].includes(e.key)) {
+      clickRef.current.play({ volume: 0.14, type: "blend", pitch: 1400, decay: 0.015 });
     }
   };
 
@@ -44,11 +48,12 @@ function App() {
       <div className="bg-[#eee] min-h-screen">
         <CustomCursor />
         <Header />
-        <section>
-          <div className="font-mono">{RenderText()}</div>
+        <section className="px-32 py-12">
+          <div className="font-mono"><p className="text-2xl text-gray-600 leading-10">{RenderText()}</p></div>
+          <Keyboard/>
         </section>
         <input
-          className="opacity-0 fixed inset-0"
+          className="opacity-0 fixed inset-0 -z-50"
           ref={inputRef}
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
