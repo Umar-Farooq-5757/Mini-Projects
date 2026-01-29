@@ -11,17 +11,96 @@
 
   --font-display: "Inter", sans-serif;
 }
-.custom-cursor {
-  transition: transform 150ms ease-out, background-color 150ms ease-out,
-    width 150ms ease-out, height 150ms ease-out, border-color 150ms ease-out;
-  will-change: transform, width, height, background-color;
+.checkbox-wrapper {
+   box-sizing: border-box;
+   display: inline-flex;
+   align-items: center;
+   gap: 10px;
+   --background-color: #fff;
+   --checkbox-size: 20px;
 }
 
-/* When hovering an interactive element we add this class in JS */
-.custom-cursor--hover {
-  /* scale via transform is combined with the translate(-50%,-50%) from tailwind classes */
-  transform: translate(-50%, -50%) scale(1.6) !important;
-  background-color: transparent;
-  width: 1.25rem; /* slightly larger — optional if using scale */
-  height: 1.25rem;
+.checkbox-wrapper .input {
+   display: none;
 }
+
+.checkbox-wrapper .checkbox {
+   height: var(--checkbox-size);
+   width: var(--checkbox-size);
+   background-color: transparent;
+   border: calc(var(--checkbox-size) * .1) solid #888888;
+   border-radius: calc(var(--checkbox-size) / 4);
+   position: relative;
+   display: inline-block;
+   box-sizing: border-box;
+   transition: border-color ease 0.2s;
+}
+
+.checkbox-wrapper .checkbox::before,
+.checkbox-wrapper .checkbox::after {
+   box-sizing: border-box;
+   position: absolute;
+   height: 0;
+   width: calc(var(--checkbox-size) * .2);
+   background-color: #474bff;
+   display: inline-block;
+   transform-origin: left top;
+   border-radius: calc(var(--checkbox-size) / 4);
+   content: " ";
+   transition: opacity ease 0.5;
+}
+
+.checkbox-wrapper .checkbox::before {
+   top: calc(var(--checkbox-size) * .72);
+   left: calc(var(--checkbox-size) * .41);
+   box-shadow: 0 0 0 calc(var(--checkbox-size) * .05) var(--background-color);
+   transform: rotate(-135deg);
+}
+
+.checkbox-wrapper .checkbox::after {
+   top: calc(var(--checkbox-size) * .37);
+   left: calc(var(--checkbox-size) * .05);
+   transform: rotate(-45deg);
+}
+
+.checkbox-wrapper .input:checked + .checkbox,
+.checkbox-wrapper .checkbox.checked {
+   border-color: #474bff;
+}
+
+.checkbox-wrapper .input:checked + .checkbox::after,
+.checkbox-wrapper .checkbox.checked::after {
+   height: calc(var(--checkbox-size) / 2);
+   animation: animation-top 0.2s ease 0s forwards;
+}
+
+.checkbox-wrapper .input:checked + .checkbox::before,
+.checkbox-wrapper .checkbox.checked::before {
+   height: calc(var(--checkbox-size) * 1.2);
+   animation: animation-bottom 0.4s ease 0s forwards;
+}
+
+@keyframes animation-top {
+   0% {
+      height: 0;
+   }
+
+   100% {
+      height: calc(var(--checkbox-size) / 2);
+   }
+}
+
+@keyframes animation-bottom {
+   0% {
+      height: 0;
+   }
+
+   50% {
+      height: 0;
+   }
+
+   100% {
+      height: calc(var(--checkbox-size) * 1.2);
+   }
+}
+

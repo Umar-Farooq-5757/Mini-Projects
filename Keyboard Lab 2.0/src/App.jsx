@@ -5,6 +5,7 @@ import Header from "./components/Header";
 import { useAppContext } from "./contexts/AppContext";
 import { createClickPlayer } from "./utils/clickSynth";
 import Keyboard from "./components/Keyboard";
+import Settings from "./modals/Settings";
 
 function App() {
   const { targetText } = useAppContext();
@@ -46,7 +47,6 @@ function App() {
   return (
     <>
       <div className="bg-[#eee] min-h-screen">
-        <CustomCursor />
         <Header />
         <section className="px-32 py-12">
           <div className="font-mono"><p className="text-2xl text-gray-600 leading-10">{RenderText()}</p></div>
@@ -60,6 +60,8 @@ function App() {
           onKeyDown={handleKeyDown}
           type="text"
         />
+        <CustomCursor />
+        <Settings/>
       </div>
     </>
   );
