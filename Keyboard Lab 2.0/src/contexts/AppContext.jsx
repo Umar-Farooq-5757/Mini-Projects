@@ -4,7 +4,7 @@ const AppContext = createContext();
 
 export const AppContextProvider = ({ children }) => {
   const [developer, setDeveloper] = useState("Umar Farooq");
-  const [areSettingsOpen, setAreSettingsOpen] = useState(true);
+  const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const [targetText, setTargetText] = useState(
     "Challenge yourself with this engaging paragraph designed to accurately measure your typing speed and accuracy. Focus on speed without sacrificing precision; every correctly typed word contributes to your final score. Track your progress, identify your weaknesses, and watch your typing skills improve with every attempt.",
   );
