@@ -1,0 +1,47 @@
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 100%;
+  object-fit: cover;
+}
+h1 {
+  display: flex;
+  align-items: center;
+}
+h2 {
+  font-weight: 100;
+}
+.inputs {
+  padding-inline: 20px;
+}
+.input {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+}
+.input p {
+  font-size: 13px;
+}
+.input input,
+.input select {
+  outline-color: orange;
+  min-width: 250px;
+}
+.numbers input {
+  min-width: 100px;
+}
+button {
+  background-color: orange;
+  border: none;
+  padding: 6px 20px;
+  border-radius: 3px;
+  cursor: pointer;
+  margin: 20px;
+}
+button:hover {
+  background-color: rgb(226, 147, 1);
+}
