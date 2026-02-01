@@ -16,32 +16,32 @@
       <h4>Find pages with...</h4>
       <div class="input">
         <p>all these words:</p>
-        <input type="text" name="" id="" />
+        <input type="text" name="" id="all" />
       </div>
 
       <div class="input">
         <p>this exact word or phrase:</p>
-        <input type="text" name="" id="" />
+        <input type="text" name="" id="exact" />
       </div>
       <div class="input">
         <p>any of these words:</p>
-        <input type="text" name="" id="" />
+        <input type="text" name="" id="any" />
       </div>
       <div class="input">
         <p>none of these words:</p>
-        <input type="text" name="" id="" />
+        <input type="text" name="" id="none" />
       </div>
       <div class="input numbers">
         <p>numbers ranging from:</p>
-        <input type="number" name="" id="" />
+        <input type="number" name="" id="min" />
         <span>to</span>
-        <input type="number" name="" id="" />
+        <input type="number" name="" id="max" />
       </div>
       <hr />
       <h4>Then narrow your results by...</h4>
       <div class="input">
         <p>language:</p>
-        <select name="" id="">
+        <select name="" id="language">
           <option value="">any language</option>
           <option value="urdu">Urdu</option>
           <option value="english">English</option>
@@ -49,7 +49,7 @@
       </div>
       <div class="input">
         <p>region:</p>
-        <select name="" id="">
+        <select name="" id="region">
           <option value="">any region</option>
           <option value="pakistan">Pakistan</option>
           <option value="us">US</option>
@@ -58,7 +58,7 @@
       </div>
       <div class="input">
         <p>last update:</p>
-        <select name="" id="">
+        <select name="" id="update">
           <option value="">any time</option>
           <option value="day">past 24 hours</option>
           <option value="week">past week</option>
@@ -68,18 +68,44 @@
       </div>
       <div class="input">
         <p>site or domain:</p>
-        <input type="text" name="" id="" />
+        <input type="text" name="" id="site" />
       </div>
       <div class="input">
         <p>terms appearing:</p>
         <select name="" id="">
-          <option value="anywhere">anywhree in the page</option>
+          <option value="anywhere">anywhere in the page</option>
           <option value="title">in the title of the page</option>
           <option value="text">in the text of the page</option>
           <option value="url">in the URL of the page</option>
         </select>
       </div>
     </div>
-    <button>Advance Search</button>
+    <button id="search">Advance Search</button>
+    <hr />
+    <section>
+      <h3>Results</h3>
+      <div>
+        <div class="element">
+          <p class="site">https://fbise.edu.pk</p>
+          <p class="title">Complete Guide to Federal Board Examinations 2025</p>
+          <p class="text">
+            Everything you need to know about FBISE exams, including schedules,
+            syllabi, and preparation tips for intermediate and matriculation
+            students.
+          </p>
+          <p class="updated">2026-02-01T08:30:00Z</p>
+        </div>
+         <div class="element">
+          <p class="site">https://fbise.edu.pk</p>
+          <p class="title">Complete Guide to Federal Board Examinations 2025</p>
+          <p class="text">
+            Everything you need to know about FBISE exams, including schedules,
+            syllabi, and preparation tips for intermediate and matriculation
+            students.
+          </p>
+          <p class="updated">2026-02-01T08:30:00Z</p>
+        </div>
+      </div>
+    </section>
   </body>
 </html>

@@ -1,5 +1,8 @@
 body {
   font-family: Arial, Helvetica, sans-serif;
+  background-color: #1f1f1f;
+  color: white;
+  padding-bottom: 100px;
 }
 img {
   width: 50px;
@@ -10,11 +13,13 @@ img {
 h1 {
   display: flex;
   align-items: center;
+  padding-inline: 20px;
 }
 h2 {
   font-weight: 100;
 }
 .inputs {
+  max-width: 600px;
   padding-inline: 20px;
 }
 .input {
@@ -29,10 +34,16 @@ h2 {
 .input input,
 .input select {
   outline-color: orange;
-  min-width: 250px;
+  width: 250px;
+  height: 20px;
+  background-color: transparent;
+  border: 2px solid gray;
+  color: white;
+  border-radius: 3px;
 }
 .numbers input {
-  min-width: 100px;
+  width: 100px;
+  height: 20px;
 }
 button {
   background-color: orange;
@@ -44,4 +55,34 @@ button {
 }
 button:hover {
   background-color: rgb(226, 147, 1);
+}
+
+section {
+  padding-inline: 20px;
+}
+.element {
+  /* background-color: aliceblue; */
+  border-bottom: 1px solid rgb(63, 63, 63);
+  border-radius: 5px;
+  padding: 0 15px;
+  margin-block: 30px;
+}.element p{
+  margin-block: 8px;
+}
+.element .site {
+  font-size: 12px;
+}
+.element .title {
+  color: skyblue;
+  cursor: pointer;
+}
+.element .title:hover {
+  text-decoration: underline;
+}
+.element .text {
+  font-size: 13px;
+}
+.element .updated {
+  font-size: 12px;
+  color: rgb(167, 167, 167);
 }
