@@ -1971,20 +1971,21 @@ const anyOfTheseWordsFnc = () => {
 //       .includes(val),
 //   );
 // };
-const numbersRangingFromFnc = () => {
-  const minValue = Number(minRange.value);
+ const numbersRangingFromFnc = () => {
+   const minValue = Number(minRange.value);
   const maxValue = Number(maxRange.value);
-  console.log(minValue,maxValue)
-  return filteredData.filter(
+   return filteredData.filter(
     (el) => el.associatedNumber >= minValue && el.associatedNumber <= maxValue,
   );
-};
+ };
 searchButton.addEventListener("click", () => {
   filteredData = allTheseWordsFnc();
   filteredData = exactWordOrPhraseFnc();
   filteredData = anyOfTheseWordsFnc();
   // filteredData = noneOfTheseWordsFnc();
-  filteredData = numbersRangingFromFnc();
+   if(Number(minRange.value)!=0 && Number(maxRange.value)!=0){
+	   filteredData = numbersRangingFromFnc();
+   }
   render();
 });
 
