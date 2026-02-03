@@ -6,18 +6,43 @@ import { useAppContext } from "./contexts/AppContext";
 import { createClickPlayer } from "./utils/clickSynth";
 import Keyboard from "./components/Keyboard";
 import Settings from "./modals/Settings";
+import { KeyboardIcon } from "lucide-react";
+import Result from "./modals/Result";
 
 function App() {
   const { targetText } = useAppContext();
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
+  const [timeLeft, setTimeLeft] = useState(60);
+  const [isActive, setIsActive] = useState(false);
   useEffect(() => {
-    const intervalId = setInterval(() => {
-      inputRef.current?.focus();
-    }, 1000);
-    return () => clearInterval(intervalId);
-  }, []);
+    let interval = null;
+    if (isActive && timeLeft > 0) {
+      interval = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else {
+      clearInterval(interval);
+      setIsActive(false);
+    }
+    return () => clearInterval(interval);
+  }, [isActive, timeLeft]);
+  const handleStart = () => {
+    setIsActive(true);
+  };
+
+  const calculateStats = () => {
+    const timeElapsedInMinutes = (60 - timeLeft) / 60;
+
+    if (timeElapsedInMinutes === 0) return { wpm: 0, cpm: 0 };
+
+    const correctChars = inputValue.length;
+    const cpm = Math.floor(correctChars / timeElapsedInMinutes);
+    const wpm = Math.floor(cpm / 5);
+
+    return { wpm, cpm };
+  };
 
   const RenderText = () => {
     return targetText.split("").map((char, idx) => {
@@ -28,7 +53,7 @@ function App() {
       }
       return (
         <span
-          className={`${coloredClass} tracking-tighter border-2 border-[#eee] ${idx == inputValue.length && "border-l-purple-600"}`}
+          className={`${coloredClass} transition-all tracking-tighter border-2 border-[#eee] ${idx == inputValue.length && "border-l-purple-600"}`}
           key={idx}
         >
           {char}
@@ -40,11 +65,15 @@ function App() {
   // Playing click sound
   const clickRef = useRef(null);
   useEffect(() => {
+    inputRef.current.focus();
     clickRef.current = createClickPlayer();
     return () => clickRef.current?.dispose();
   }, []);
   const handleKeyDown = (e) => {
     const printable = e.key.length === 1;
+    if (!isActive && e.target.value.length === 1) {
+      setIsActive(true);
+    }
     if (printable || ["Backspace", "Enter"].includes(e.key)) {
       clickRef.current.play({
         volume: 0.14,
@@ -60,8 +89,15 @@ function App() {
       <div className="bg-[#eee] min-h-screen">
         <Header />
         <section className="px-32 py-12">
-          <div className="font-mono">
+          <div className="font-mono relative">
             <p className="text-2xl text-gray-600 leading-10">{RenderText()}</p>
+            <button
+              onClick={() => inputRef.current.focus()}
+              className="bg-purple-500 absolute right-0 -bottom-5 text-white font-semibold flex justify-center items-center gap-2 py-1 px-3 rounded-md shadow-2xl"
+            >
+              <KeyboardIcon />
+              <span>Start Typing</span>
+            </button>
           </div>
           <Keyboard />
         </section>
@@ -75,6 +111,7 @@ function App() {
         />
         <CustomCursor />
         <Settings />
+        <Result />
       </div>
     </>
   );
