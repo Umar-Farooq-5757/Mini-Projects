@@ -10,35 +10,40 @@ import { KeyboardIcon } from "lucide-react";
 import Result from "./modals/Result";
 
 function App() {
-  const { targetText } = useAppContext();
+  const { targetText, setIsResultModalOpen } = useAppContext();
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
-  const [timeLeft, setTimeLeft] = useState(60);
+  const [timeLeft, setTimeLeft] = useState(10);
   const [isActive, setIsActive] = useState(false);
+  const [wpm, setWpm] = useState(0);
+  const [cpm, setCpm] = useState(0);
   useEffect(() => {
     let interval = null;
-    if (isActive && timeLeft > 0) {
+    if (isActive && timeLeft > 0 && inputValue.length < targetText.length) {
       interval = setInterval(() => {
         setTimeLeft((prev) => prev - 1);
       }, 1000);
     } else {
       clearInterval(interval);
       setIsActive(false);
+      const { wpm, cpm } = calculateStats();
+      setWpm(wpm);
+      setCpm(cpm);
+      if (timeLeft === 0 || inputValue.length == targetText.length) {
+        setIsResultModalOpen(true);
+      }
     }
     return () => clearInterval(interval);
   }, [isActive, timeLeft]);
-  const handleStart = () => {
-    setIsActive(true);
-  };
 
   const calculateStats = () => {
-    const timeElapsedInMinutes = (60 - timeLeft) / 60;
+    const timeElapsedInMinutes = (10 - timeLeft) / 10;
 
     if (timeElapsedInMinutes === 0) return { wpm: 0, cpm: 0 };
 
-    const correctChars = inputValue.length;
-    const cpm = Math.floor(correctChars / timeElapsedInMinutes);
+    const typedChars = inputValue.length;
+    const cpm = Math.floor(typedChars / timeElapsedInMinutes);
     const wpm = Math.floor(cpm / 5);
 
     return { wpm, cpm };
@@ -71,9 +76,7 @@ function App() {
   }, []);
   const handleKeyDown = (e) => {
     const printable = e.key.length === 1;
-    if (!isActive && e.target.value.length === 1) {
-      setIsActive(true);
-    }
+    setIsActive(true);
     if (printable || ["Backspace", "Enter"].includes(e.key)) {
       clickRef.current.play({
         volume: 0.14,
@@ -90,6 +93,7 @@ function App() {
         <Header />
         <section className="px-32 py-12">
           <div className="font-mono relative">
+            {timeLeft}
             <p className="text-2xl text-gray-600 leading-10">{RenderText()}</p>
             <button
               onClick={() => inputRef.current.focus()}
@@ -111,7 +115,7 @@ function App() {
         />
         <CustomCursor />
         <Settings />
-        <Result />
+        <Result wpm={wpm} cpm={cpm}/>
       </div>
     </>
   );

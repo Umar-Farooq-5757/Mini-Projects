@@ -3,8 +3,8 @@ import { useAppContext } from "../contexts/AppContext";
 import { createPortal } from "react-dom";
 import { X } from "lucide-react";
 
-const Result = () => {
-  const { isResultModalOpen, setIsResultModalOpen } = useAppContext();
+const Result = ({ wpm, cpm }) => {
+  const { isResultModalOpen, setIsResultModalOpen,countingMode } = useAppContext();
   return createPortal(
     <div
       onClick={() => setIsResultModalOpen(false)}
@@ -20,6 +20,7 @@ const Result = () => {
             <X className="size-5 text-gray-600" />
           </button>
         </div>
+        {countingMode == 'wpm'? <div>WPM: {wpm}</div>:<div>CPM: {cpm}</div> }
       </div>
     </div>,
     document.querySelector("#portal"),
