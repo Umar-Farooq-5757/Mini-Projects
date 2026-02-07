@@ -8,6 +8,8 @@ import Keyboard from "./components/Keyboard";
 import Settings from "./modals/Settings";
 import { KeyboardIcon } from "lucide-react";
 import Result from "./modals/Result";
+import ToolBar from "./components/ToolBar";
+import { useTimer } from "react-timer-hook";
 
 function App() {
   const { targetText, setIsResultModalOpen } = useAppContext();
@@ -18,36 +20,19 @@ function App() {
   const [isActive, setIsActive] = useState(false);
   const [wpm, setWpm] = useState(0);
   const [cpm, setCpm] = useState(0);
-  useEffect(() => {
-    let interval = null;
-    if (isActive && timeLeft > 0 && inputValue.length < targetText.length) {
-      interval = setInterval(() => {
-        setTimeLeft((prev) => prev - 1);
-      }, 1000);
-    } else {
-      clearInterval(interval);
-      setIsActive(false);
-      const { wpm, cpm } = calculateStats();
-      setWpm(wpm);
-      setCpm(cpm);
-      if (timeLeft === 0 || inputValue.length == targetText.length) {
-        setIsResultModalOpen(true);
-      }
-    }
-    return () => clearInterval(interval);
-  }, [isActive, timeLeft]);
+  const { seconds, minutes, isRunning, start, pause, restart } = useTimer({
+    expiryTimestamp: new Date(),
+    autoStart: false,
+    onExpire: async () => {
+      const timeInMinutes = timeLeft / 60;
+      const calculatedCpm = inputValue.length / timeInMinutes;
 
-  const calculateStats = () => {
-    const timeElapsedInMinutes = (10 - timeLeft) / 10;
-
-    if (timeElapsedInMinutes === 0) return { wpm: 0, cpm: 0 };
-
-    const typedChars = inputValue.length;
-    const cpm = Math.floor(typedChars / timeElapsedInMinutes);
-    const wpm = Math.floor(cpm / 5);
-
-    return { wpm, cpm };
-  };
+      const calculatedWpm = calculatedCpm / 5;
+      setCpm(Math.round(calculatedCpm));
+      setWpm(Math.round(calculatedWpm));
+      setIsResultModalOpen(true);
+    },
+  });
 
   const RenderText = () => {
     return targetText.split("").map((char, idx) => {
@@ -76,7 +61,15 @@ function App() {
   }, []);
   const handleKeyDown = (e) => {
     const printable = e.key.length === 1;
-    setIsActive(true);
+
+    if (!isActive) {
+      setIsActive(true);
+
+      const time = new Date();
+      time.setSeconds(time.getSeconds() + timeLeft);
+
+      restart(time);
+    }
     if (printable || ["Backspace", "Enter"].includes(e.key)) {
       clickRef.current.play({
         volume: 0.14,
@@ -93,7 +86,12 @@ function App() {
         <Header />
         <section className="px-32 py-12">
           <div className="font-mono relative">
-            {timeLeft}
+            <ToolBar />
+            <div
+              className={`font-bold text-6xl text-purple-500 font-sans my-2 ${!isActive && "opacity-0"}`}
+            >
+              {seconds}
+            </div>
             <p className="text-2xl text-gray-600 leading-10">{RenderText()}</p>
             <button
               onClick={() => inputRef.current.focus()}
@@ -115,7 +113,7 @@ function App() {
         />
         <CustomCursor />
         <Settings />
-        <Result wpm={wpm} cpm={cpm}/>
+        <Result wpm={wpm} cpm={cpm} />
       </div>
     </>
   );
