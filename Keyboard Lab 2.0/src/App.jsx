@@ -16,7 +16,7 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(Number(localStorage.getItem('timeLeft'))||30);
   const [isActive, setIsActive] = useState(false);
   const [wpm, setWpm] = useState(0);
   const [cpm, setCpm] = useState(0);
@@ -30,7 +30,7 @@ function App() {
       const calculatedWpm = calculatedCpm / 5;
       setCpm(Math.round(calculatedCpm));
       setWpm(Math.round(calculatedWpm));
-      setIsResultModalOpen(true);
+      if(isActive){setIsResultModalOpen(true);}
     },
   });
 
@@ -86,9 +86,15 @@ function App() {
         <Header />
         <section className="px-32 py-12">
           <div className="font-mono relative">
-            <ToolBar />
+            <ToolBar
+              setInputValue={setInputValue}
+              setIsActive={setIsActive}
+              timeLeft={timeLeft}
+              setTimeLeft={setTimeLeft}
+              inpurRef = {inputRef}
+            />
             <div
-              className={`font-bold text-6xl text-purple-500 font-sans my-2 ${!isActive && "opacity-0"}`}
+              className={`font-bold text-6xl text-purple-400 font-sans my-2 ${!isActive && "opacity-0"}`}
             >
               {seconds}
             </div>

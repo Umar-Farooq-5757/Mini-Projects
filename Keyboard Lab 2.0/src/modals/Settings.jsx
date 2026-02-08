@@ -84,7 +84,10 @@ const Settings = () => {
                   <select
                     className="bg-white border border-gray-300 shadow-xs rounded-sm px-2 py-0.5 outline-none"
                     value={countingMode}
-                    onChange={(e) => setCountingMode(e.target.value)}
+                    onChange={(e) => {
+                      setCountingMode(e.target.value);
+                      localStorage.setItem("countingMode", e.target.value);
+                    }}
                   >
                     <option value="" hidden>
                       Mode

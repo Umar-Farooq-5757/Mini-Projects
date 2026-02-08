@@ -10,7 +10,9 @@ export const AppContextProvider = ({ children }) => {
     "Challenge yourself with this engaging paragraph designed to accurately measure your typing speed and accuracy. Focus on speed without sacrificing precision; every correctly typed word contributes to your final score. Track your progress, identify your weaknesses, and watch your typing skills improve with every attempt.",
   );
 
-  const [countingMode, setCountingMode] = useState("wpm");
+  const [countingMode, setCountingMode] = useState(
+    localStorage.getItem("countingMode") || "wpm",
+  );
   const [backspaceBehavior, setBackspaceBehavior] = useState("correct-errors");
   const [quickReset, setQuickReset] = useState(true);
   const [caretStyle, setCaretStyle] = useState("line");
