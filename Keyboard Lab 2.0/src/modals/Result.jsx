@@ -82,7 +82,7 @@ const ProgressBar = ({
     </div>
   );
 };
-const Result = ({ wpm, cpm }) => {
+const Result = ({ wpm, cpm,accuracy }) => {
   const { isResultModalOpen, setIsResultModalOpen, countingMode } =
     useAppContext();
   return createPortal(
@@ -100,7 +100,8 @@ const Result = ({ wpm, cpm }) => {
             <X className="size-5 text-gray-600" />
           </button>
         </div>
-        {countingMode == "wpm" ? (
+       <div className="flex justify-center gap-16 mt-16">
+         {countingMode == "wpm" ? (
           <ProgressBar
             value={wpm}
             maxValue={100}
@@ -123,6 +124,17 @@ const Result = ({ wpm, cpm }) => {
             duration={1000}
           />
         )}
+        <ProgressBar
+            value={accuracy}
+            maxValue={100}
+            label="Accuracy"
+            suffix="%"
+            color="#8b5cf6"
+            size={180}
+            strokeWidth={14}
+            duration={1000}
+          />
+       </div>
       </div>
     </div>,
     document.querySelector("#portal"),

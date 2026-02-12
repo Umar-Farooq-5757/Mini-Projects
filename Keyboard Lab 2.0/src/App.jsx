@@ -16,10 +16,13 @@ function App() {
   const [inputValue, setInputValue] = useState("");
   const inputRef = useRef(null);
 
-  const [timeLeft, setTimeLeft] = useState(Number(localStorage.getItem('timeLeft'))||30);
+  const [timeLeft, setTimeLeft] = useState(
+    Number(localStorage.getItem("timeLeft")) || 30,
+  );
   const [isActive, setIsActive] = useState(false);
   const [wpm, setWpm] = useState(0);
   const [cpm, setCpm] = useState(0);
+  const [accuracy, setAccuracy] = useState(100);
   const { seconds, minutes, isRunning, start, pause, restart } = useTimer({
     expiryTimestamp: new Date(),
     autoStart: false,
@@ -30,7 +33,20 @@ function App() {
       const calculatedWpm = calculatedCpm / 5;
       setCpm(Math.round(calculatedCpm));
       setWpm(Math.round(calculatedWpm));
-      if(isActive){setIsResultModalOpen(true);}
+
+      // For accuracy
+      let correctChars = 0;
+      inputValue.split('').forEach((char, index) => {
+        if (char === targetText[index]) correctChars++;
+      });
+      const acc =
+        inputValue.length > 0
+          ? Math.round((correctChars / inputValue.length) * 100)
+          : 100;
+      setAccuracy(acc);
+      if (isActive) {
+        setIsResultModalOpen(true);
+      }
     },
   });
 
@@ -91,7 +107,6 @@ function App() {
               setIsActive={setIsActive}
               timeLeft={timeLeft}
               setTimeLeft={setTimeLeft}
-              inpurRef = {inputRef}
             />
             <div
               className={`font-bold text-6xl text-purple-400 font-sans my-2 ${!isActive && "opacity-0"}`}
@@ -119,7 +134,7 @@ function App() {
         />
         <CustomCursor />
         <Settings />
-        <Result wpm={wpm} cpm={cpm} />
+        <Result wpm={wpm} cpm={cpm} accuracy={accuracy} />
       </div>
     </>
   );

@@ -6,7 +6,6 @@ const ToolBar = ({
   setIsActive,
   timeLeft,
   setTimeLeft,
-  inputRef,
 }) => {
   return (
     <div className="bg-white py-2 px-8 shadow-sm rounded-md flex justify-between items-center">
@@ -53,7 +52,6 @@ const ToolBar = ({
           setInputValue("");
           setIsActive(false);
           setTimeLeft(timeLeft);
-          inputRef.current.focus();
         }}
         title="restart test"
       >
