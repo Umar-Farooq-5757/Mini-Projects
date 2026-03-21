@@ -53,7 +53,7 @@
       .hidden{
         display:none;
       }
-      button{
+      button,input,p{
         margin-bottom:50px;
         background-color: black;
         color:white;
@@ -65,16 +65,26 @@
         left:0;
         right:0;
       }
+      input{
+        bottom:-220px;
+      }
+      p{
+        color: black;
+        background-color: white;
+        bottom:-200px;
+      }
     </style>
   </head>
   <body>
       <div class="container">
-        <button id="btn">Hide</button>
         <div class="green one"></div>
         <div class="green two"></div>
         <div class="green three"></div>
         <div class="green four"></div>
         <div class="blue"></div>
+        <button id="btn">Hide</button>
+        <p>Opacity:</p>
+        <input id="range" type="range" max="100" min="0" value="100">
       </div>
   </body>
   <script>
@@ -89,6 +99,12 @@
         }else{
           btn.innerText='Hide'
         }
+    })
+    const rangeInput = document.querySelector('#range')
+    rangeInput.addEventListener('input',()=>{
+      boxes.forEach(box=>{
+        box.style.opacity = rangeInput.value/100
+      })
     })
   </script>
 </html>
