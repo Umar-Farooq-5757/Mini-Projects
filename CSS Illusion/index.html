@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Hello, World!</title>
+    <style>
+      .container{
+        position:relative;
+        width: 300px;
+        height:300px;
+        margin-inline: auto;
+      }
+      .green{
+        position: absolute;
+        height: 45%;
+        width:45%;
+        background-color: green;
+      }
+      .one{
+        top:0;
+        left:0;
+      }
+      .two{
+        top:0;
+        right:0;
+      }
+      .three{
+        bottom:0;
+        left:0;
+      }
+      .four{
+        bottom:0;
+        right:0;
+      }
+      .blue{
+        position:absolute;
+        width:50%;
+        height:50%;
+        top:25%;
+        left:25%;
+        transform:translate(-50%,-50%);
+        background-color: blue;
+        z-index:-50;
+        animation: spin 3s linear infinite;
+      }
+      @keyframes spin{
+        from{
+          transform: rotate(0deg);
+        }
+        to{
+          transform: rotate(360deg);
+        }
+      }
+      .hidden{
+        display:none;
+      }
+      button,input,p{
+        margin-bottom:50px;
+        background-color: black;
+        color:white;
+        border:none;
+        padding:10px 8px;
+        border-radius:5px;
+        position:absolute;
+        bottom:-150px;
+        left:0;
+        right:0;
+      }
+      input{
+        bottom:-220px;
+      }
+      p{
+        color: black;
+        background-color: white;
+        bottom:-200px;
+      }
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <div class="green one"></div>
+        <div class="green two"></div>
+        <div class="green three"></div>
+        <div class="green four"></div>
+        <div class="blue"></div>
+        <button id="btn">Hide</button>
+        <p>Opacity:</p>
+        <input id="range" type="range" max="100" min="0" value="100">
+      </div>
+  </body>
+  <script>
+    const btn = document.querySelector('#btn')
+    const boxes = document.querySelectorAll('.green')
+    btn.addEventListener('click',()=>{
+      boxes.forEach(box=>{
+        box.classList.toggle('hidden')
+      })
+      if(btn.innerText=='Hide'){
+          btn.innerText='Show'
+        }else{
+          btn.innerText='Hide'
+        }
+    })
+    const rangeInput = document.querySelector('#range')
+    rangeInput.addEventListener('input',()=>{
+      boxes.forEach(box=>{
+        box.style.opacity = rangeInput.value/100
+      })
+    })
+  </script>
+</html>
