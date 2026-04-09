@@ -1,5 +1,4 @@
 import { Check, X } from "lucide-react";
-import { createPortal } from "react-dom";
 
 function Settings({
   areSettingsOpen,
@@ -33,13 +32,13 @@ function Settings({
       value: "#00a63e",
     },
   ];
-  return createPortal(
+  return (
     <div
       onClick={() => setAreSettingsOpen(false)}
-      className={`${!areSettingsOpen && "hidden"} fixed inset-0 flex justify-center items-center bg-black/20`}>
+      className={`${!areSettingsOpen && "hidden"} absolute inset-0 flex justify-center items-center bg-black/20`}>
       <div
         onClick={(e) => e.stopPropagation()}
-        className="bg-[#333333] h-1/2 w-3/4 rounded-sm shadow-md text-white px-5 py-4">
+        className="bg-[#333333] h-1/2 w-9/10 rounded-sm shadow-md text-white px-5 py-4">
         <div className="flex justify-between items-center">
           <h2 className="font-semibold text-xl">Settings</h2>
           <button onClick={() => setAreSettingsOpen(false)}>
@@ -65,8 +64,7 @@ function Settings({
           </div>
         </div>
       </div>
-    </div>,
-    document.querySelector("#portal"),
+    </div>
   );
 }
 

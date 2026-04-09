@@ -115,7 +115,7 @@ function App() {
     if (isSoundEnabled) handleClick();
   };
   const togglePause = () => {
-    if (turn === "") return;
+    if (turn === "")return;
 
     if (!isPaused) {
       timer1.pause();
@@ -125,10 +125,6 @@ function App() {
       if (turn === "black") timer2.resume();
     }
     setIsPaused(!isPaused);
-  };
-  const startGame = () => {
-    setTurn("white");
-    timer1.start();
   };
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
@@ -144,7 +140,7 @@ function App() {
     setTurn('')
   }
   return (
-    <main ref={screenRef} className="flex min-h-screen flex-col select-none">
+    <main ref={screenRef} className="flex min-h-screen flex-col select-none max-w-120 mx-auto relative">
       {/* Player 1 time */}
       <div
         onClick={() => {
