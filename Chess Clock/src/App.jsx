@@ -92,9 +92,9 @@ function App() {
   );
   const handleToggleTurn = (clickedPlayer) => {
     if (turn === "") {
-      setTurn("white");
-      setIsPaused(false);
-      timer1.start();
+        setTurn("white");
+        setIsPaused(false);
+        timer1.start();
       return;
     }
 
@@ -130,13 +130,19 @@ function App() {
     setTurn("white");
     timer1.start();
   };
-  const handleTap = () => {};
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
     const seconds = totalSeconds % 60;
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
+  const reloadTimers = ()=>{
+    timer1.pause()
+    timer2.pause()
+    setTime1(initialTime)
+    setTime2(initialTime)
+    setTurn('')
+  }
   return (
     <main ref={screenRef} className="flex min-h-screen flex-col select-none">
       {/* Player 1 time */}
@@ -144,7 +150,7 @@ function App() {
         onClick={() => {
           handleToggleTurn("white");
         }}
-        style={{ backgroundColor: turn == "white" ? selectedTheme : "#555" }}
+        style={{backgroundColor:turn=='white'?selectedTheme:"#555"}}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
         <p className="rotate-180">{formatTime(time1)}</p>
       </div>
@@ -157,7 +163,7 @@ function App() {
             <Pause className="size-5" />
           )}
         </div>
-        <div onClick={() => window.location.reload()}>
+        <div onClick={reloadTimers}>
           <RotateCw className="size-5" />
         </div>
         <div onClick={() => setAreSettingsOpen(!areSettingsOpen)}>
@@ -185,13 +191,13 @@ function App() {
         onClick={() => {
           handleToggleTurn("black");
         }}
-        style={{ backgroundColor: turn == "black" ? selectedTheme : "#555" }}
+        style={{backgroundColor:turn=='black'?selectedTheme:"#555"}}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
-        <p>{formatTime(time1)}</p>
+        <p>{formatTime(time2)}</p>
       </div>
       <Settings
-        selectedTheme={selectedTheme}
-        setSelectedTheme={setSelectedTheme}
+      selectedTheme={selectedTheme}
+      setSelectedTheme={setSelectedTheme}
         areSettingsOpen={areSettingsOpen}
         setAreSettingsOpen={setAreSettingsOpen}
       />
