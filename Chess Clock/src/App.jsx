@@ -13,11 +13,13 @@ import {
 import Settings from "./components/Settings";
 import { createClickPlayer } from "./utils/clickSynth";
 import { useTimer } from "react-use-precision-timer";
+
 function App() {
   const [isPaused, setIsPaused] = useState(true);
   const [isSoundEnabled, setIsSoundEnabled] = useState(true);
   const [areSettingsOpen, setAreSettingsOpen] = useState(false);
   const [turn, setTurn] = useState("");
+  const [selectedTheme, setSelectedTheme] = useState("#00bba7");
 
   const [isFullscreen, setIsFullscreen] = useState(false);
   const screenRef = useRef(null);
@@ -90,15 +92,13 @@ function App() {
   );
   const handleToggleTurn = (clickedPlayer) => {
     if (turn === "") {
-      if (clickedPlayer === "white") {
-        setTurn("white");
-        setIsPaused(false)
-        timer1.start();
-      }
+      setTurn("white");
+      setIsPaused(false);
+      timer1.start();
       return;
     }
 
-   if (isPaused || clickedPlayer !== turn) return;
+    if (isPaused || clickedPlayer !== turn) return;
 
     if (turn === "white") {
       timer1.stop();
@@ -142,15 +142,11 @@ function App() {
       {/* Player 1 time */}
       <div
         onClick={() => {
-          // setTurn("black");
-          // if(turn==''){startGame()}
           handleToggleTurn("white");
-          // if (turn == "white") {
-          //   handleClick();
-          // }
         }}
-        className={`${turn == "white" ? "bg-teal-500" : "bg-[#555]"} grow text-white font-semibold text-9xl text flex justify-center items-center`}>
-        {formatTime(time1)}
+        style={{ backgroundColor: turn == "white" ? selectedTheme : "#555" }}
+        className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
+        <p className="rotate-180">{formatTime(time1)}</p>
       </div>
       {/* Controls */}
       <div className="bg-[#333] text-white py-2 px-2 flex items-center justify-around">
@@ -187,16 +183,15 @@ function App() {
       {/* Player 2 time */}
       <div
         onClick={() => {
-          // setTurn("white");
           handleToggleTurn("black");
-          // if (turn == "black") {
-          //   handleClick();
-          // }
         }}
-        className={`${turn == "black" ? "bg-teal-500" : "bg-[#555]"} grow text-white font-semibold text-9xl text flex justify-center items-center`}>
-        {formatTime(time2)}
+        style={{ backgroundColor: turn == "black" ? selectedTheme : "#555" }}
+        className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
+        <p>{formatTime(time1)}</p>
       </div>
       <Settings
+        selectedTheme={selectedTheme}
+        setSelectedTheme={setSelectedTheme}
         areSettingsOpen={areSettingsOpen}
         setAreSettingsOpen={setAreSettingsOpen}
       />
