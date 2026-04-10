@@ -155,8 +155,9 @@ function App() {
           handleToggleTurn("white");
         }}
         style={{ backgroundColor: turn == "white" ? selectedTheme : "#555" }}
-        className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
+        className={`grow text-white font-semibold text-9xl text flex justify-center items-center relative`}>
         <p className="rotate-180">{formatTime(time1)}</p>
+        <p className="text-lg absolute top-4 rotate-180">{formatTime(initialTime)} min + {increment/1000} sec</p>
       </div>
       {/* Controls */}
       <div className="bg-[#333] text-white py-2 px-2 flex items-center justify-around">
@@ -196,8 +197,9 @@ function App() {
           handleToggleTurn("black");
         }}
         style={{ backgroundColor: turn == "black" ? selectedTheme : "#555" }}
-        className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
+        className={`grow text-white font-semibold text-9xl text flex justify-center items-center relative`}>
         <p>{formatTime(time2)}</p>
+         <p className="text-lg absolute bottom-4">{formatTime(initialTime)} min + {increment/1000} sec</p>
       </div>
       <Settings
         selectedTheme={selectedTheme}
