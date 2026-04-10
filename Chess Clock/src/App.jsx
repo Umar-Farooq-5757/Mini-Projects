@@ -71,8 +71,8 @@ function App() {
   /**
    * Handling Time
    */
-  const initialTime = 5 * 60 * 1000; // in milliseconds
-  const increment = 3 * 1000;
+  const [initialTime, setInitialTime] = useState(5 * 60 * 1000); // in milliseconds
+  const [increment, setIncrement] = useState(3*1000); // in milliseconds
   const tickRate = 100;
   const [time1, setTime1] = useState(initialTime);
   const [time2, setTime2] = useState(initialTime);
@@ -92,9 +92,9 @@ function App() {
   );
   const handleToggleTurn = (clickedPlayer) => {
     if (turn === "") {
-        setTurn("white");
-        setIsPaused(false);
-        timer1.start();
+      setTurn("white");
+      setIsPaused(false);
+      timer1.start();
       return;
     }
 
@@ -115,7 +115,7 @@ function App() {
     if (isSoundEnabled) handleClick();
   };
   const togglePause = () => {
-    if (turn === "")return;
+    if (turn === "") return;
 
     if (!isPaused) {
       timer1.pause();
@@ -132,21 +132,29 @@ function App() {
     const seconds = totalSeconds % 60;
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
-  const reloadTimers = ()=>{
-    timer1.pause()
-    timer2.pause()
-    setTime1(initialTime)
-    setTime2(initialTime)
-    setTurn('')
-  }
+  const reloadTimers = (newTime) => {
+  const timeToSet = newTime !== undefined ? newTime : initialTime;
+  
+  timer1.pause();
+  timer2.pause();
+  timer1.stop();
+  timer2.stop();
+  
+  setTime1(timeToSet);
+  setTime2(timeToSet);
+  setTurn("");
+  setIsPaused(true);
+};
   return (
-    <main ref={screenRef} className="flex min-h-screen flex-col select-none max-w-120 mx-auto relative">
+    <main
+      ref={screenRef}
+      className="flex min-h-screen flex-col select-none max-w-120 mx-auto relative">
       {/* Player 1 time */}
       <div
         onClick={() => {
           handleToggleTurn("white");
         }}
-        style={{backgroundColor:turn=='white'?selectedTheme:"#555"}}
+        style={{ backgroundColor: turn == "white" ? selectedTheme : "#555" }}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
         <p className="rotate-180">{formatTime(time1)}</p>
       </div>
@@ -159,7 +167,7 @@ function App() {
             <Pause className="size-5" />
           )}
         </div>
-        <div onClick={reloadTimers}>
+        <div onClick={()=>reloadTimers(initialTime)}>
           <RotateCw className="size-5" />
         </div>
         <div onClick={() => setAreSettingsOpen(!areSettingsOpen)}>
@@ -187,15 +195,18 @@ function App() {
         onClick={() => {
           handleToggleTurn("black");
         }}
-        style={{backgroundColor:turn=='black'?selectedTheme:"#555"}}
+        style={{ backgroundColor: turn == "black" ? selectedTheme : "#555" }}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center`}>
         <p>{formatTime(time2)}</p>
       </div>
       <Settings
-      selectedTheme={selectedTheme}
-      setSelectedTheme={setSelectedTheme}
+        selectedTheme={selectedTheme}
+        setSelectedTheme={setSelectedTheme}
         areSettingsOpen={areSettingsOpen}
         setAreSettingsOpen={setAreSettingsOpen}
+        setInitialTime={setInitialTime}
+        setIncrement={setIncrement}
+        reloadTimers={reloadTimers}
       />
     </main>
   );
