@@ -15,29 +15,41 @@ function Board() {
     ["P", "P", "P", "P", "P", "P", "P", "P"],
     ["R", "N", "B", "Q", "K", "B", "N", "R"],
   ]);
-  console.log(pieces.find(piece=>piece.symbol=='r'))
+ 
+  const colors = [
+    ["b", "w", "b", "w", "b", "w", "b", "w"],
+    ["w", "b", "w", "b", "w", "b", "w", "b"],
+    ["b", "w", "b", "w", "b", "w", "b", "w"],
+    ["w", "b", "w", "b", "w", "b", "w", "b"],
+    ["b", "w", "b", "w", "b", "w", "b", "w"],
+    ["w", "b", "w", "b", "w", "b", "w", "b"],
+    ["b", "w", "b", "w", "b", "w", "b", "w"],
+    ["w", "b", "w", "b", "w", "b", "w", "b"],
+  ];
   return (
-    <div className="mx-auto">
+    <section className="flex justify-center items-center  my-8 size-">
+      <div className="size-[99vw] sm:size-[80vw] md:size-[65vw] lg:size-[50vw] aspect-square">
       {board.map((rank, idx) => {
         return (
           <div className="flex" key={idx}>
             {rank.map((square, i) => {
               return (
                 <div
-                  className="size-20 bg-[#666] border border-[#555] flex items-center justify-center"
+                style={{backgroundColor:colors[idx][i]=='w'?'#f8f8f8':'#616162'}}
+                  className="size-1/8 bg-[#666] aspect-square border border-[#555] flex items-center justify-center"
                   key={i}>
-                  {square == 'r' && <div className="size-9">{pieces.find(piece=>piece.symbol=='r').svg}</div>}
-                  {square == 'R' && <div className="size-9">{pieces.find(piece=>piece.symbol=='R').svg}</div>}
-                  {square == 'b' && <div className="size-9">{pieces.find(piece=>piece.symbol=='b').svg}</div>}
-                  {square == 'B' && <div className="size-9">{pieces.find(piece=>piece.symbol=='B').svg}</div>}
-                  {square == 'n' && <div className="size-9">{pieces.find(piece=>piece.symbol=='n').svg}</div>}
-                  {square == 'N' && <div className="size-9">{pieces.find(piece=>piece.symbol=='N').svg}</div>}
-                  {square == 'q' && <div className="size-9">{pieces.find(piece=>piece.symbol=='q').svg}</div>}
-                  {square == 'Q' && <div className="size-9">{pieces.find(piece=>piece.symbol=='Q').svg}</div>}
-                  {square == 'k' && <div className="size-9">{pieces.find(piece=>piece.symbol=='k').svg}</div>}
-                  {square == 'K' && <div className="size-9">{pieces.find(piece=>piece.symbol=='K').svg}</div>}
-                  {square == 'p' && <div className="size-9">{pieces.find(piece=>piece.symbol=='p').svg}</div>}
-                  {square == 'P' && <div className="size-9">{pieces.find(piece=>piece.symbol=='P').svg}</div>}
+                  {square == 'r' && <img src={pieces.find(piece=>piece.symbol=='r').png}/>}
+                  {square == 'R' && <img src={pieces.find(piece=>piece.symbol=='R').png}/>}
+                  {square == 'b' && <img src={pieces.find(piece=>piece.symbol=='b').png}/>}
+                  {square == 'B' && <img src={pieces.find(piece=>piece.symbol=='B').png}/>}
+                  {square == 'n' && <img src={pieces.find(piece=>piece.symbol=='n').png}/>}
+                  {square == 'N' && <img src={pieces.find(piece=>piece.symbol=='N').png}/>}
+                  {square == 'p' && <img src={pieces.find(piece=>piece.symbol=='p').png}/>}
+                  {square == 'P' && <img src={pieces.find(piece=>piece.symbol=='P').png}/>}
+                  {square == 'q' && <img src={pieces.find(piece=>piece.symbol=='q').png}/>}
+                  {square == 'Q' && <img src={pieces.find(piece=>piece.symbol=='Q').png}/>}
+                  {square == 'k' && <img src={pieces.find(piece=>piece.symbol=='k').png}/>}
+                  {square == 'K' && <img src={pieces.find(piece=>piece.symbol=='K').png}/>}
                 </div>
               );
             })}
@@ -45,6 +57,7 @@ function Board() {
         );
       })}
     </div>
+    </section>
   );
 }
 
