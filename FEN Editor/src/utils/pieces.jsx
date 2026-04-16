@@ -1,15 +1,15 @@
-import blackRook from "../../public/pieces/black-rook.png";
-import whiteRook from "../../public/pieces/white-rook.png";
-import blackBishop from "../../public/pieces/black-bishop.png";
-import whiteBishop from "../../public/pieces/white-bishop.png";
-import blackKnight from "../../public/pieces/black-knight.png";
-import whiteKnight from "../../public/pieces/white-knight.png";
-import blackPawn from "../../public/pieces/black-pawn.png";
-import whitePawn from "../../public/pieces/white-pawn.png";
-import blackQueen from "../../public/pieces/black-queen.png";
-import whiteQueen from "../../public/pieces/white-queen.png";
-import blackKing from "../../public/pieces/black-king.png";
-import whiteKing from "../../public/pieces/white-king.png";
+import blackRook from "/pieces/black-rook.png";
+import whiteRook from "/pieces/white-rook.png";
+import blackBishop from "/pieces/black-bishop.png";
+import whiteBishop from "/pieces/white-bishop.png";
+import blackKnight from "/pieces/black-knight.png";
+import whiteKnight from "/pieces/white-knight.png";
+import blackPawn from "/pieces/black-pawn.png";
+import whitePawn from "/pieces/white-pawn.png";
+import blackQueen from "/pieces/black-queen.png";
+import whiteQueen from "/pieces/white-queen.png";
+import blackKing from "/pieces/black-king.png";
+import whiteKing from "/pieces/white-king.png";
 
 const pieces = [
   {

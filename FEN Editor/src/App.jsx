@@ -6,7 +6,7 @@ import Input from "./components/Input";
 
 function App() {
   const [FEN, setFEN] = useState(
-    "rnbqkbnr/pppppppp/8/8/211B3/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
+    "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1",
   );
   const [board, setBoard] = useState([
     ["r", "n", "b", "q", "k", "b", "n", "r"],

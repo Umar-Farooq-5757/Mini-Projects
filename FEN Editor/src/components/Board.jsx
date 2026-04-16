@@ -13,7 +13,7 @@ function Board({ FEN, setFEN, board, setBoard }) {
     ["b", "w", "b", "w", "b", "w", "b", "w"],
   ];
   return (
-    <section className="flex justify-center items-center mt-8 mb-6">
+    <section className="flex justify-center items-center mt-8 mb-6 sm:mt-2 sm:mb-2">
       <div className="w-[95vw] sm:w-[80vw] md:w-[65vw] lg:w-[50vw] aspect-square">
         {board.map((rank, idx) => {
           return (
