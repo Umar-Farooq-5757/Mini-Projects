@@ -4,7 +4,7 @@ import About from "./About";
 
 function Input({ FEN, setFEN, board, setBoard }) {
   const [error, setError] = useState("");
-  const [isAboutOpen, setIsAboutOpen] = useState(true);
+  const [isAboutOpen, setIsAboutOpen] = useState(false);
   const fenToBoard = (fen) => {
     if (!isValidFEN(fen)) {
       setError("Invalid FEN");
