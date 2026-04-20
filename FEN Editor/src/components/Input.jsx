@@ -1,7 +1,10 @@
 import { useState } from "react";
+import { BsQuestionCircle } from "react-icons/bs";
+import About from "./About";
 
 function Input({ FEN, setFEN, board, setBoard }) {
   const [error, setError] = useState("");
+  const [isAboutOpen, setIsAboutOpen] = useState(true);
   const fenToBoard = (fen) => {
     if (!isValidFEN(fen)) {
       setError("Invalid FEN");
@@ -85,11 +88,17 @@ function Input({ FEN, setFEN, board, setBoard }) {
           spellCheck="false"
         />
       </div>
-      <button
-        onClick={() => fenToBoard(FEN)}
-        className="bg-white text-black rounded-sm px-5 py-1 my-1 font-semibold hover:opacity-75 transition-all">
-        Apply Changes
-      </button>
+      <div className="flex justify-between items-center pr-10">
+        <button
+          onClick={() => fenToBoard(FEN)}
+          className="bg-white text-black rounded-sm px-5 py-1 my-1 font-semibold hover:opacity-75 transition-all">
+          Apply Changes
+        </button>
+        <div onClick={() => setIsAboutOpen(true)} className="cursor-pointer">
+          <BsQuestionCircle />
+        </div>
+      </div>
+      <About isAboutOpen={isAboutOpen} setIsAboutOpen={setIsAboutOpen} />
     </section>
   );
 }
