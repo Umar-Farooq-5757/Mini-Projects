@@ -72,10 +72,11 @@ function App() {
    * Handling Time
    */
   const [initialTime, setInitialTime] = useState(5 * 60 * 1000); // in milliseconds
-  const [increment, setIncrement] = useState(3*1000); // in milliseconds
+  const [increment, setIncrement] = useState(3 * 1000); // in milliseconds
   const tickRate = 100;
   const [time1, setTime1] = useState(initialTime);
   const [time2, setTime2] = useState(initialTime);
+  const [whoWon, setWhoWon] = useState("");
   // Timer for white
   const timer1 = useTimer(
     { delay: tickRate },
@@ -126,6 +127,20 @@ function App() {
     }
     setIsPaused(!isPaused);
   };
+
+  useEffect(() => {
+    const checkTime = () => {
+      if (time1 == 0) {
+        setWhoWon("black");
+        console.log("black won on time");
+      } else if (time2 == 0) {
+        setWhoWon("white");
+        console.log("white won on time");
+      }
+    };
+    checkTime();
+  }, [time1, time2]);
+
   const formatTime = (ms) => {
     const totalSeconds = Math.floor(ms / 1000);
     const minutes = Math.floor(totalSeconds / 60);
@@ -133,18 +148,19 @@ function App() {
     return `${minutes}:${seconds.toString().padStart(2, "0")}`;
   };
   const reloadTimers = (newTime) => {
-  const timeToSet = newTime !== undefined ? newTime : initialTime;
-  
-  timer1.pause();
-  timer2.pause();
-  timer1.stop();
-  timer2.stop();
-  
-  setTime1(timeToSet);
-  setTime2(timeToSet);
-  setTurn("");
-  setIsPaused(true);
-};
+    const timeToSet = newTime !== undefined ? newTime : initialTime;
+    setWhoWon("");
+
+    timer1.pause();
+    timer2.pause();
+    timer1.stop();
+    timer2.stop();
+
+    setTime1(timeToSet);
+    setTime2(timeToSet);
+    setTurn("");
+    setIsPaused(true);
+  };
   return (
     <main
       ref={screenRef}
@@ -156,8 +172,16 @@ function App() {
         }}
         style={{ backgroundColor: turn == "white" ? selectedTheme : "#555" }}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center relative`}>
-        <p className="rotate-180">{formatTime(time1)}</p>
-        <p className="text-lg absolute top-4 rotate-180">{formatTime(initialTime)} min + {increment/1000} sec</p>
+        <p className="rotate-180">
+          {whoWon == ""
+            ? formatTime(time1)
+            : whoWon == "white"
+              ? <span className="text-8xl">You Won</span>
+              : <span className="text-8xl">You Lost</span>}
+        </p>
+        <p className="text-lg absolute top-4 rotate-180">
+          {formatTime(initialTime)} min + {increment / 1000} sec
+        </p>
       </div>
       {/* Controls */}
       <div className="bg-[#333] text-white py-2 px-2 flex items-center justify-around">
@@ -168,7 +192,7 @@ function App() {
             <Pause className="size-5" />
           )}
         </div>
-        <div onClick={()=>reloadTimers(initialTime)}>
+        <div onClick={() => reloadTimers(initialTime)}>
           <RotateCw className="size-5" />
         </div>
         <div onClick={() => setAreSettingsOpen(!areSettingsOpen)}>
@@ -198,8 +222,16 @@ function App() {
         }}
         style={{ backgroundColor: turn == "black" ? selectedTheme : "#555" }}
         className={`grow text-white font-semibold text-9xl text flex justify-center items-center relative`}>
-        <p>{formatTime(time2)}</p>
-         <p className="text-lg absolute bottom-4">{formatTime(initialTime)} min + {increment/1000} sec</p>
+        <p>
+          {whoWon == ""
+            ? formatTime(time2)
+            : whoWon == "black"
+              ? <span className="text-8xl">You Won</span>
+              : <span className="text-8xl">You Lost</span>}
+        </p>
+        <p className="text-lg absolute bottom-4">
+          {formatTime(initialTime)} min + {increment / 1000} sec
+        </p>
       </div>
       <Settings
         selectedTheme={selectedTheme}
