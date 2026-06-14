@@ -32,16 +32,112 @@ function App() {
   return (
     <main className="min-h-screen bg-black/20 p-5 overflow-hidden flex justify-center items-start gap-3 sm:gap-12">
       {/* Hours (HH) */}
-      <Slider st={0} end={2} selected={Number(currentTime[0])} />
-      <Slider st={0} end={9} selected={Number(currentTime[1])} />
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
       {/* Minutes (MM) */}
-      <Slider st={0} end={5} selected={Number(currentTime[2])} />
-      <Slider st={0} end={9} selected={Number(currentTime[3])} />
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
       {/* Seconds (SS) */}
-      <Slider st={0} end={5} selected={Number(currentTime[4])} />
-      <Slider st={0} end={9} selected={Number(currentTime[5])} />
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
+      <div
+        className={`bg-[#818181] transition-all slider flex flex-col gap-0 w-fit h-fit p-0.5 sm:p-2 rounded-md`}
+        style={{ transform: `translateY(calc(43vh - ${transform}px))` }}>
+        {l.map((el) => {
+          return (
+            <div
+              key={el}
+              className={`${
+                selected == el &&
+                "rounded-full bg-white/20 backdrop-blur-sm shadow-lg border-white/30 scale-105 sm:scale-110"
+              } text-center py-1 px-3 transition-all border border-[#818181] font-mono text-white font-semibold text-lg sm:text-2xl`}>
+              {el}
+            </div>
+          );
+        })}
+      </div>
       <p className="fixed bottom-1 left-6 bg-[#ccc]">
-        Made with ❤️ by <a href="https://github.com/umar-farooq-5757" target="_blank" className="font-semibold text-blue-600 underline">Umar Farooq</a>
+        Made with ❤️ by{" "}
+        <a
+          href="https://github.com/umar-farooq-5757"
+          target="_blank"
+          className="font-semibold text-blue-600 underline">
+          Umar Farooq
+        </a>
       </p>
     </main>
   );
