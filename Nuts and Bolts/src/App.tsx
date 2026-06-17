@@ -21,10 +21,11 @@ function App() {
     [],
   ]);
   const unscrew = (index: number) => {
+    if (currentNut !== "") return;
     let clickedBolt = boltsArray[index];
     if (clickedBolt.length !== 0) {
-      setCurrentNut(clickedBolt.at(-1)??"");
-      setNutRemovedFrom(index)
+      setCurrentNut(clickedBolt.at(-1) ?? "");
+      setNutRemovedFrom(index);
       setBoltsArray((prev) =>
         prev.map((row, rowIdx) => {
           if (index !== rowIdx) {
@@ -37,35 +38,22 @@ function App() {
   };
   const screw = (index: number) => {
     let clickedArr = boltsArray[index];
-    if (clickedArr.length === 0) {
-      setBoltsArray((prev) =>
-        prev.map((arr, idx) => {
-          if (index !== idx) {
-            return arr;
-          }
-          let result = [...arr, currentNut];
-          return result;
-        }),
-      );
-    } else if(clickedArr.length<=3){
-      if (clickedArr.at(-1) === currentNut) {
-        setBoltsArray((prev) =>
-          prev.map((arr, idx) => {
-            if (index !== idx) {
-              return arr;
-            }
-            let result = [...arr, currentNut];
-            return result;
-          }),
-        );
-      } else {
-        screw(nutRemovedFrom)
-        return;
-      }
-    }else{
-      screw(nutRemovedFrom)
-    }
+    const isValidMove =
+      clickedArr.length === 0 ||
+      (clickedArr.length < 3 && clickedArr.at(-1) === currentNut);
+    const targetIndex = isValidMove ? index : nutRemovedFrom;
+    console.log(clickedArr);
+    setBoltsArray((prev) =>
+      prev.map((arr, idx) => {
+        if (idx !== targetIndex) {
+          return arr;
+        }
+        return [...arr, currentNut];
+      }),
+    );
+
     setCurrentNut("");
+    setNutRemovedFrom(-1);
   };
   return (
     <>
