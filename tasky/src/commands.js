@@ -11,7 +11,11 @@ export const addTask = (taskDescription) => {
 export const listTasks = () => {
   const tasks = readTasks();
   if (tasks.length === 0) {
-    console.log(chalk.red.bold('No tasks found. Type `tasky add "your task"` to create one!'));
+    console.log(
+      chalk.red.bold(
+        'No tasks found. Type `tasky add "your task"` to create one!',
+      ),
+    );
     return;
   }
   console.log("\nYour Task List:");
@@ -25,10 +29,26 @@ export const editTask = (id, newDesc) => {
   let tasks = readTasks();
   const taskToEdit = tasks.find((t) => t.id == id);
   if (!taskToEdit) {
-    console.log(`Task with id:${id} does not exist`);
+    console.log(chalk.red(`Task with id:${id} does not exist`));
     return;
   }
   taskToEdit.task = newDesc;
-  saveTasks(tasks)
-  console.log(`Task with id:${chalk.blue.underline(id)} was successfully edited!`)
+  saveTasks(tasks);
+  console.log(
+    `Task with id:${chalk.blue.underline(id)} was successfully edited!`,
+  );
+};
+
+export const deleteTask = (id) => {
+  const tasks = readTasks();
+  const taskToDelete = tasks.find((t) => t.id == id);
+  if (!taskToDelete) {
+    console.log(`Task with id:${id} does not exist`);
+    return;
+  }
+  const updatedTasks = tasks.filter((t) => t.id != id);
+  saveTasks(updatedTasks);
+  console.log(
+    `Task with id:${chalk.blue.underline(id)} was successfully deleted!`,
+  );
 };

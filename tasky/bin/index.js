@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { addTask, editTask, listTasks } from "../src/commands.js";
+import { addTask, deleteTask, editTask, listTasks } from "../src/commands.js";
 
 program
   .name("tasky")
@@ -31,6 +31,15 @@ program
   .argument("<newDesc>", "Modified task description")
   .action((id, newDesc) => {
     editTask(id, newDesc);
+  });
+
+// command to delete a task
+program
+  .command("delete")
+  .description("Delete a task")
+  .argument("<id>", "The task id")
+  .action((id) => {
+    deleteTask(id);
   });
 
 // parse the arguments passed by user
