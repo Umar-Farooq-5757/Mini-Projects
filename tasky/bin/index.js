@@ -42,5 +42,23 @@ program
     deleteTask(id);
   });
 
+  // command to mark a task as done
+program
+  .command("done")
+  .description("Mark a task as completed")
+  .argument("<id>", "The task id")
+  .action((id) => {
+    toggleTaskStatus(id, true);
+  });
+
+// command to mark a task as incomplete
+program
+  .command("undone")
+  .description("Mark a task as incomplete")
+  .argument("<id>", "The task id")
+  .action((id) => {
+    toggleTaskStatus(id, false);
+  });
+
 // parse the arguments passed by user
 program.parse();

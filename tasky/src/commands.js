@@ -3,7 +3,8 @@ import { readTasks, saveTasks } from "./storage.js";
 
 export const addTask = (taskDescription) => {
   const tasks = readTasks();
-  tasks.push({ id: tasks.length + 1, task: taskDescription, done: false });
+  const nextId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
+  tasks.push({ id: nextId, task: taskDescription, done: false });
   saveTasks(tasks);
   console.log(chalk.green(`Task added successfully: "${taskDescription}"`));
 };
@@ -51,4 +52,19 @@ export const deleteTask = (id) => {
   console.log(
     `Task with id:${chalk.blue.underline(id)} was successfully deleted!`,
   );
+};
+
+export const toggleTaskStatus = (id, isDone) => {
+  const tasks = readTasks();
+  const task = tasks.find((t) => t.id == id);
+  if (!task) {
+    console.log(chalk.red(`Task with id:${id} does not exist`));
+    return;
+  }
+  task.done = isDone;
+  saveTasks(tasks);
+  const statusMessage = isDone
+    ? chalk.green("completed [X]")
+    : chalk.yellow("incomplete [ ]");
+  console.log(`Task ${chalk.blue.underline(id)} marked as ${statusMessage}!`);
 };
