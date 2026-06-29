@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 
 import { program } from "commander";
-import { addTask, deleteTask, editTask, listTasks } from "../src/commands.js";
+import { addTask, deleteTask, editTask, listTasks, toggleTaskStatus } from "../src/commands.js";
 
 program
   .name("tasky")
